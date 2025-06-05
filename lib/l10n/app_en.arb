@@ -1,0 +1,442 @@
+{
+  "@@locale": "en",
+  "appTitle": "NutriVision",
+  "signUpTitle": "Sign Up",
+  "signInTitle": "Sign In",
+  "emailHint": "Email",
+  "passwordHint": "Password",
+  "confirmPasswordHint": "Confirm Password",
+  "signUpButton": "Sign Up",
+  "signInButton": "Sign In",
+  "forgotPasswordButton": "Forgot Password?",
+  "alreadyHaveAccount": "Already have an account? Sign In",
+  "dontHaveAccount": "Dont have an account? Sign Up",
+  "nameHint": "Name",
+  "ageHint": "Age",
+  "weightHint": "Weight",
+  "heightHint": "Height",
+  "activityLevelPrompt": "Activity Level",
+  "goalPrompt": "Goal",
+  "saveButton": "Save",
+  "nextButton": "Next",
+  "selectDietaryPreferences": "Select Dietary Preferences",
+  "selectAllergies": "Select Allergies or Restrictions",
+  "dashboardTitle": "Dashboard",
+  "logMealButton": "Log Meal",
+  "previousDay": "Previous Day",
+  "nextDay": "Next Day",
+  "calories": "Calories",
+  "protein": "Protein",
+  "carbs": "Carbs",
+  "fats": "Fats",
+  "targets": "Targets",
+  "consumed": "Consumed",
+  "remaining": "Remaining",
+  "mealNameHint": "Meal Name (e.g., Lunch)",
+  "foodItemHint": "Food Item",
+  "quantityHint": "Quantity (e.g., 100g or 1 cup)",
+  "addFoodItemButton": "Add Food Item",
+  "submitMealButton": "Submit Meal",
+  "forgotPasswordTitle": "Forgot Password",
+  "sendResetLinkButton": "Send Reset Link",
+  "passwordResetEmailSent": "Password reset email sent. Please check your inbox.",
+  "errorOccurred": "An error occurred. Please try again.",
+  "passwordsDoNotMatch": "Passwords do not match.",
+  "weakPassword": "Password should be at least 6 characters.",
+  "invalidEmail": "Invalid email address.",
+  "userNotFound": "User not found.",
+  "wrongPassword": "Wrong password.",
+  "welcomeMessage": "Welcome {userName}",
+  "@welcomeMessage": {
+    "description": "Welcome message on the dashboard",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
+  },
+  "termsAndConditions": "Terms and Conditions",
+  "privacyPolicy": "Privacy Policy",
+  "iAgreeToThe": "I agree to the {terms} and {privacyPolicy}",
+  "@iAgreeToThe": {
+    "description": "Consent text for terms and privacy policy",
+    "placeholders": {
+      "terms": {
+        "type": "String",
+        "example": "Terms and Conditions"
+      },
+      "privacyPolicy": {
+        "type": "String",
+        "example": "Privacy Policy"
+      }
+    }
+  },
+  "pleaseAgreeToTerms": "Please agree to the terms and privacy policy.",
+  "male": "Male",
+  "female": "Female",
+  "sexPrompt": "Sex",
+  "heightUnitPrompt": "Height Unit",
+  "weightUnitPrompt": "Weight Unit",
+  "cm": "cm",
+  "inches": "inches",
+  "kg": "kg",
+  "lbs": "lbs",
+  "bmr": "BMR",
+  "tdee": "TDEE",
+  "macronutrientTargets": "Macronutrient Targets",
+  "profileSetupTitle": "Profile Setup",
+  "dietaryPreferencesTitle": "Dietary Preferences",
+  "logMealTitle": "Log Meal",
+  "viewProfile": "View Profile",
+  "editProfile": "Edit Profile",
+  "signOut": "Sign Out",
+  "profile": "Profile",
+  "settings": "Settings",
+  "searchFood": "Search Food (e.g., Apple)",
+  "addSelectedFood": "Add Selected Food",
+  "noResultsFound": "No results found.",
+  "search": "Search",
+  "servingSize": "Serving Size",
+  "caloriesPerServing": "Calories per serving",
+  "proteinPerServing": "Protein per serving",
+  "carbsPerServing": "Carbs per serving",
+  "fatsPerServing": "Fats per serving",
+  "manualEntry": "Manual Entry",
+  "scanBarcode": "Scan Barcode (Coming Soon!)",
+  "recentMeals": "Recent Meals",
+  "quickAdd": "Quick Add",
+  "waterIntake": "Water Intake",
+  "addWater": "Add Water (ml)",
+  "waterGoal": "Water Goal: {goal} ml",
+  "@waterGoal": {
+    "description": "User's water intake goal",
+    "placeholders": {
+      "goal": {
+        "type": "int",
+        "example": "2000"
+      }
+    }
+  },
+  "waterConsumed": "Consumed: {consumed} ml",
+  "@waterConsumed": {
+    "description": "User's consumed water amount",
+    "placeholders": {
+      "consumed": {
+        "type": "int",
+        "example": "500"
+      }
+    }
+  },
+  "selectLanguage": "Select Language",
+  "english": "English",
+  "spanish": "Spanish",
+  "french": "French",
+  "language": "Language",
+  "notifications": "Notifications",
+  "enableNotifications": "Enable Notifications",
+  "theme": "Theme",
+  "lightTheme": "Light Theme",
+  "darkTheme": "Dark Theme",
+  "systemTheme": "System Theme",
+  "account": "Account",
+  "deleteAccount": "Delete Account",
+  "confirmDeleteAccount": "Are you sure you want to delete your account? This action cannot be undone.",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "reauthenticateToDelete": "Please sign in again to delete your account.",
+  "profileUpdatedSuccessfully": "Profile updated successfully!",
+  "mealLoggedSuccessfully": "Meal logged successfully!",
+  "dataSavedSuccessfully": "Data saved successfully!",
+  "requiredField": "This field is required.",
+  "invalidNumber": "Please enter a valid number.",
+  "minAge": "Age must be at least {min} years.",
+  "@minAge": {
+    "description": "Validation message for minimum age",
+    "placeholders": {
+      "min": {
+        "type": "int",
+        "example": "18"
+      }
+    }
+  },
+  "maxAge": "Age must be at most {max} years.",
+  "@maxAge": {
+    "description": "Validation message for maximum age",
+    "placeholders": {
+      "max": {
+        "type": "int",
+        "example": "99"
+      }
+    }
+  },
+  "minWeight": "Weight must be at least {min} {unit}.",
+  "@minWeight": {
+    "description": "Validation message for minimum weight",
+    "placeholders": {
+      "min": {
+        "type": "double",
+        "example": "40.0"
+      },
+      "unit": {
+        "type": "String",
+        "example": "kg"
+      }
+    }
+  },
+  "maxWeight": "Weight must be at most {max} {unit}.",
+  "@maxWeight": {
+    "description": "Validation message for maximum weight",
+    "placeholders": {
+      "max": {
+        "type": "double",
+        "example": "200.0"
+      },
+      "unit": {
+        "type": "String",
+        "example": "kg"
+      }
+    }
+  },
+  "minHeight": "Height must be at least {min} {unit}.",
+  "@minHeight": {
+    "description": "Validation message for minimum height",
+    "placeholders": {
+      "min": {
+        "type": "double",
+        "example": "100.0"
+      },
+      "unit": {
+        "type": "String",
+        "example": "cm"
+      }
+    }
+  },
+  "maxHeight": "Height must be at most {max} {unit}.",
+  "@maxHeight": {
+    "description": "Validation message for maximum height",
+    "placeholders": {
+      "max": {
+        "type": "double",
+        "example": "250.0"
+      },
+      "unit": {
+        "type": "String",
+        "example": "cm"
+      }
+    }
+  },
+  "sedentary": "Sedentary (little or no exercise)",
+  "lightlyActive": "Lightly active (light exercise/sports 1-3 days/week)",
+  "moderatelyActive": "Moderately active (moderate exercise/sports 3-5 days/week)",
+  "veryActive": "Very active (hard exercise/sports 6-7 days a week)",
+  "extraActive": "Extra active (very hard exercise/sports & physical job or 2x training)",
+  "maintainWeight": "Maintain weight",
+  "mildWeightLoss": "Mild weight loss (0.25 kg/week)",
+  "weightLoss": "Weight loss (0.5 kg/week)",
+  "extremeWeightLoss": "Extreme weight loss (1 kg/week)",
+  "mildWeightGain": "Mild weight gain (0.25 kg/week)",
+  "weightGain": "Weight gain (0.5 kg/week)",
+  "extremeWeightGain": "Extreme weight gain (1 kg/week)",
+  "vegetarian": "Vegetarian",
+  "vegan": "Vegan",
+  "pescatarian": "Pescatarian",
+  "glutenFree": "Gluten-Free",
+  "dairyFree": "Dairy-Free",
+  "keto": "Keto",
+  "paleo": "Paleo",
+  "lowCarb": "Low Carb",
+  "lowFat": "Low Fat",
+  "highProtein": "High Protein",
+  "nuts": "Nuts",
+  "shellfish": "Shellfish",
+  "soy": "Soy",
+  "eggs": "Eggs",
+  "fish": "Fish",
+  "other": "Other",
+  "needsUppercaseLetter": "Needs uppercase letter",
+  "needsLowercaseLetter": "Needs lowercase letter",
+  "needsNumber": "Needs a number",
+  "needsSpecialCharacter": "Needs a special character",
+  "strongPassword": "Strong",
+  "chooseStrongerPassword": "Please choose a stronger password based on the criteria.",
+  "emailAlreadyInUse": "An account already exists for this email. Please sign in.",
+  "createAccountJourney": "Create an account to start your nutritional journey.",
+  "pleaseEnterEmail": "Please enter your email",
+  "pleaseEnterPassword": "Please enter your password",
+  "pleaseConfirmPassword": "Please confirm your password",
+  "passwordTooShort": "Too short (min 8 chars)",
+  "passwordCriteriaNotMet": "Please ensure your password meets all criteria.",
+  "welcomeToNutrivision": "Welcome to NutriVision!",
+  "createAccountToStart": "Create an account to start your nutritional journey.",
+  "emailExample": "you@example.com",
+
+  "tellUsAboutYourself": "Tell us a bit about yourself",
+  "helpsCalculateNeeds": "This helps us calculate your nutritional needs.",
+  "nameExample": "E.g., Alex Smith",
+  "pleaseEnterName": "Please enter your name",
+  "nameTooShort": "Name seems too short (min 2 characters)",
+  "ageExample": "E.g., 30",
+  "pleaseEnterAge": "Please enter your age",
+  "unrealisticAge": "Please enter a realistic age (13-100 years)",
+  "weightExample": "E.g., 70",
+  "pleaseEnterWeight": "Please enter your weight",
+  "invalidPositiveWeight": "Please enter a valid positive weight",
+  "weightTooHigh": "Weight seems too high, please verify",
+  "heightExampleCm": "E.g., 175",
+  "heightExampleFtIn": "E.g., 5.10 (5 feet 10 inches)",
+  "pleaseEnterHeight": "Please enter your height",
+  "invalidPositiveHeight": "Please enter a valid positive height",
+  "heightFtInFormatHint": "Use . for ft-in (e.g., 5.10)",
+  "invalidFtInFormat": "Invalid ft-in format (e.g., 5.10)",
+  "validFtInExample": "Valid ft-in: e.g., 5.10 (0-11 inches)",
+  "heightTooHigh": "Height seems too high, please verify",
+  "heightTooHighCm": "Height seems too high (max 300cm)",
+  "heightTooLowCm": "Height seems too low (min 50cm)",
+  "pleaseSelectBiologicalSex": "Please select your biological sex",
+  "pleaseSelectActivityLevel": "Please select your activity level",
+  "pleaseSelectDietaryGoal": "Please select your primary dietary goal",
+  "errorNoUserLoggedIn": "Error: No user logged in. Please sign in again.",
+  "profileSavedSuccessProfileSetup": "Profile and nutritional targets saved! Next: Dietary Preferences.",
+  "failedToSaveProfile": "Failed to save profile. Please try again.",
+  "ftIn": "ft-in",
+  "otherBiologicalSex": "Other",
+
+  "loseWeightGoal": "Lose Weight",
+  "gainMuscleGoal": "Gain Muscle",
+  "improveHealthGoal": "Improve Health",
+
+  "refreshData": "Refresh Data",
+  "couldNotLoadUserData": "Could not load user data. Please try again.",
+  "retryButton": "Retry",
+  "userGeneric": "User",
+  "welcomeBackMessage": "Welcome back, {userName}!",
+  "@welcomeBackMessage": {
+    "description": "Welcome message on the dashboard greeting the user",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "example": "Alex"
+      }
+    }
+  },
+  "todaysSummary": "Today's Progress",
+  "recentMeals": "Recent Meals",
+  "quickActions": "Quick Actions",
+  "viewAll": "View All",
+  "noRecentMeals": "No recent meals logged",
+  "goodMorning": "Good morning",
+  "goodAfternoon": "Good afternoon",
+  "goodEvening": "Good evening",
+  "aiPhotoLog": "AI Photo Log",
+  "manualLog": "Manual Log",
+  "mealSuggestions": "Meal Suggestions",
+  "refreshData": "Refresh Data",
+  "gramsUnit": "g",
+  "kcalUnit": "kcal",
+  "logNewMealButton": "Log New Meal",
+  "navigateToEditProfilePlaceholder": "Navigate to Edit Profile/Preferences - TBD",
+  "editProfilePreferencesButton": "Edit Profile & Preferences",
+  "summaryForDate": "Summary for {date}",
+  "@summaryForDate": {
+    "description": "Summary title with date",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "2023-05-27"
+      }
+    }
+  },
+
+  "dietaryPreferencesHeadline": "Help us tailor your experience!",
+  "dietaryPreferencesSubheadline": "Select any preferences and list allergies or restrictions.",
+  "commonDietaryPreferencesTitle": "Common Dietary Preferences (Optional):",
+  "commonAllergiesTitle": "Common Allergies/Intolerances (Optional):",
+  "otherRestrictionsTitle": "Other Notes/Restrictions (Optional):",
+  "otherRestrictionsLabel": "Other Dietary Notes or Restrictions",
+  "otherRestrictionsHint": "E.g., low-sodium, avoid spicy food, specific dislikes",
+  "savePreferencesButton": "Save Preferences & Continue",
+  "dietaryPreferencesSaved": "Dietary preferences saved!",
+  "failedToSavePreferences": "Failed to save preferences: {error}",
+  "@failedToSavePreferences": {
+    "description": "Error message when saving dietary preferences fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "none": "None",
+
+  "logMealHeadline": "What did you eat?",
+  "mealDescriptionLabel": "Meal Description",
+  "mealDescriptionHint": "E.g., Grilled chicken salad, Apple slices",
+  "pleaseEnterMealDescription": "Please enter a meal description",
+  "descriptionTooShort": "Description seems too short",
+  "descriptionTooLong": "Description too long (max {maxLength} chars)",
+  "@descriptionTooLong": {
+    "description": "Validation message for meal description exceeding max length",
+    "placeholders": {
+      "maxLength": {
+        "type": "String",
+        "example": "150"
+      }
+    }
+  },
+  "dateLabel": "Date",
+  "timeLabel": "Time",
+  "caloriesLabelKcal": "Calories (kcal)",
+  "caloriesHint": "E.g., 350",
+  "pleaseEnterCalories": "Please enter calories",
+  "pleaseEnterValidPositiveNumber": "Please enter a valid positive number",
+  "caloriesTooHighSingleMeal": "Calories seem very high for a single meal",
+  "proteinLabelG": "Protein (g)",
+  "proteinHint": "E.g., 30",
+  "enterProteinOrZero": "Enter protein (0 if none)",
+  "invalidAmount": "Invalid amount",
+  "proteinTooHigh": "Protein seems very high",
+  "carbsLabelG": "Carbs (g)",
+  "carbsHint": "E.g., 45",
+  "enterCarbsOrZero": "Enter carbs (0 if none)",
+  "carbsTooHigh": "Carbs seem very high",
+  "fatLabelG": "Fat (g)",
+  "fatHint": "E.g., 15",
+  "enterFatOrZero": "Enter fat (0 if none)",
+  "fatTooHigh": "Fat seems very high",
+  "failedToLogMeal": "Failed to log meal: {error}",
+  "@failedToLogMeal": {
+    "description": "Error message when failing to log a meal",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "forgotPasswordPrompt": "Enter your email address below and we'll send you a link to reset your password.",
+  "passwordResetEmailSentFeedback": "Password reset email sent successfully. Please check your inbox (and spam folder).",
+  "backToSignIn": "Back to Sign In",
+  "homeTab": "Home",
+  "logTab": "Log",
+  "statsTab": "Stats",
+  "goalsTab": "Goals",
+  "profileTab": "Profile",
+  "logYourMeal": "Log Your Meal",
+  "aiPhotoRecognition": "AI Photo Recognition",
+  "takePhotoForLogging": "Take a photo of your meal for instant logging",
+  "searchFoods": "Search Foods",
+  "searchFoodsDescription": "Search our database of foods and recipes",
+  "createCustomMeal": "Create Custom Meal",
+  "createCustomMealDescription": "Build and save your own meal",
+  "favorites": "Favorites",
+  "favoritesDescription": "Quickly log your favorite meals",
+  "profileTitle": "Profile",
+  "editProfile": "Edit Profile",
+  "dietaryPreferences": "Dietary Preferences",
+  "appSettings": "App Settings",
+  "connectHealthApps": "Connect Health Apps",
+  "helpSupport": "Help & Support",
+  "logMealTitle": "Log Meal",
+  "moreActions": "More Actions"
+}

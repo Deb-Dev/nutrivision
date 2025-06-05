@@ -1,0 +1,16 @@
+NutriVision v2.2.0 - Typography Enhancement Release (May 27, 2025)
+
+NEW FEATURES:
+- Centralized typography system with 10 Google Fonts (Roboto, Open Sans, Lato, Montserrat, Source Sans Pro, Nunito, Poppins, Inter, Raleway, Ubuntu)
+- Font Settings screen for personalizing app appearance
+- Font Demo screen for previewing typography styles
+- Persistent font selection across app sessions
+- Material Design 3 compliant text styles throughout the app
+
+IMPROVEMENTS:
+- Standardized typography across all screens
+- Enhanced visual consistency and readability
+- Better accessibility through proper text hierarchy
+- Improved user customization options
+
+Please report any issues through the feedback form in the app.

@@ -1,0 +1,7 @@
+# Global .gitignore for build artifacts
+**/build/
+**/*.dSYM.zip
+**/*.dSYM/
+**/*.ipa
+**/*.app
+**/DerivedData/

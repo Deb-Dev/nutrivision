@@ -1,0 +1,34 @@
+fastlane_version "2.212.1"
+
+default_platform :ios
+
+platform :ios do
+  desc "Build iOS app (without Firebase distribution)"
+  lane :beta do
+    build_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+      export_method: "development",
+      output_directory: "./build/ios",
+      output_name: "NutriVision.ipa"
+    )
+    # Firebase distribution will be handled by the distribute.sh script
+  end
+end
+
+platform :android do
+  desc "Build and upload Android app to Firebase App Distribution"
+  lane :beta do
+    gradle(
+      task: "clean assembleRelease",
+      project_dir: "../android/"
+    )
+    
+    firebase_app_distribution(
+      app: "1:115156539680:android:c5ada66de89205341f9f45",
+      groups: "beta-testers",
+      release_notes: File.read("../android/app/src/main/play/release-notes/en-US/default.txt"),
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"]
+    )
+  end
+end

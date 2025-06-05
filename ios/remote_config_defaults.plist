@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>gemini_api_key</key>
+  <string>AIzaSyA0DSdLGeDdcDWUWxs5G9ctCgUxcM3J_1Q</string>
+  <key>ai_recognition_enabled</key>
+  <string>true</string>
+  <key>max_food_items_per_image</key>
+  <string>5</string>
+  <key>min_confidence_threshold</key>
+  <string>0.6</string>
+</dict>
+</plist>

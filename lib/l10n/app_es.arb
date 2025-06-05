@@ -1,0 +1,415 @@
+{
+  "@@locale": "es",
+  "appTitle": "NutriVision",
+  "signUpTitle": "Registrarse",
+  "signInTitle": "Iniciar Sesión",
+  "emailHint": "Correo Electrónico",
+  "passwordHint": "Contraseña",
+  "confirmPasswordHint": "Confirmar Contraseña",
+  "signUpButton": "Registrarse",
+  "signInButton": "Iniciar Sesión",
+  "forgotPasswordButton": "¿Olvidaste tu contraseña?",
+  "alreadyHaveAccount": "¿Ya tienes una cuenta? Inicia Sesión",
+  "dontHaveAccount": "¿No tienes una cuenta? Regístrate",
+  "nameHint": "Nombre",
+  "ageHint": "Edad",
+  "weightHint": "Peso",
+  "heightHint": "Altura",
+  "activityLevelPrompt": "Nivel de Actividad",
+  "goalPrompt": "Objetivo",
+  "saveButton": "Guardar",
+  "nextButton": "Siguiente",
+  "selectDietaryPreferences": "Seleccionar Preferencias Dietéticas",
+  "selectAllergies": "Seleccionar Alergias o Restricciones",
+  "dashboardTitle": "Panel de Control",
+  "logMealButton": "Registrar Comida",
+  "previousDay": "Día Anterior",
+  "nextDay": "Día Siguiente",
+  "calories": "Calorías",
+  "protein": "Proteína",
+  "carbs": "Carbohidratos",
+  "fats": "Grasas",
+  "targets": "Objetivos",
+  "consumed": "Consumido",
+  "remaining": "Restante",
+  "mealNameHint": "Nombre de la Comida (ej. Almuerzo)",
+  "foodItemHint": "Alimento",
+  "quantityHint": "Cantidad (ej. 100g o 1 taza)",
+  "addFoodItemButton": "Añadir Alimento",
+  "submitMealButton": "Enviar Comida",
+  "forgotPasswordTitle": "Olvidé mi Contraseña",
+  "sendResetLinkButton": "Enviar Enlace de Restablecimiento",
+  "passwordResetEmailSent": "Correo de restablecimiento de contraseña enviado. Por favor, revisa tu bandeja de entrada.",
+  "errorOccurred": "Ocurrió un error. Por favor, inténtalo de nuevo.",
+  "passwordsDoNotMatch": "Las contraseñas no coinciden.",
+  "weakPassword": "La contraseña debe tener al menos 6 caracteres.",
+  "invalidEmail": "Dirección de correo electrónico inválida.",
+  "userNotFound": "Usuario no encontrado.",
+  "wrongPassword": "Contraseña incorrecta.",
+  "welcomeMessage": "Bienvenido {userName}",
+  "@welcomeMessage": {
+    "description": "Mensaje de bienvenida en el panel de control",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "example": "Juan Pérez"
+      }
+    }
+  },
+  "termsAndConditions": "Términos y Condiciones",
+  "privacyPolicy": "Política de Privacidad",
+  "iAgreeToThe": "Acepto los {terms} y la {privacyPolicy}",
+  "@iAgreeToThe": {
+    "description": "Texto de consentimiento para términos y política de privacidad",
+    "placeholders": {
+      "terms": {
+        "type": "String",
+        "example": "Términos y Condiciones"
+      },
+      "privacyPolicy": {
+        "type": "String",
+        "example": "Política de Privacidad"
+      }
+    }
+  },
+  "pleaseAgreeToTerms": "Por favor, acepta los términos y la política de privacidad.",
+  "male": "Masculino",
+  "female": "Femenino",
+  "sexPrompt": "Sexo",
+  "heightUnitPrompt": "Unidad de Altura",
+  "weightUnitPrompt": "Unidad de Peso",
+  "cm": "cm",
+  "inches": "pulgadas",
+  "kg": "kg",
+  "lbs": "libras",
+  "bmr": "TMB",
+  "tdee": "GETD",
+  "macronutrientTargets": "Objetivos de Macronutrientes",
+  "profileSetupTitle": "Configuración de Perfil",
+  "dietaryPreferencesTitle": "Preferencias Dietéticas",
+  "logMealTitle": "Registrar Comida",
+  "viewProfile": "Ver Perfil",
+  "editProfile": "Editar Perfil",
+  "signOut": "Cerrar Sesión",
+  "profile": "Perfil",
+  "settings": "Ajustes",
+  "searchFood": "Buscar Alimento (ej. Manzana)",
+  "addSelectedFood": "Añadir Alimento Seleccionado",
+  "noResultsFound": "No se encontraron resultados.",
+  "search": "Buscar",
+  "servingSize": "Tamaño de la Porción",
+  "caloriesPerServing": "Calorías por porción",
+  "proteinPerServing": "Proteína por porción",
+  "carbsPerServing": "Carbohidratos por porción",
+  "fatsPerServing": "Grasas por porción",
+  "manualEntry": "Entrada Manual",
+  "scanBarcode": "Escanear Código de Barras (¡Próximamente!)",
+  "recentMeals": "Comidas Recientes",
+  "quickAdd": "Añadir Rápido",
+  "waterIntake": "Consumo de Agua",
+  "addWater": "Añadir Agua (ml)",
+  "waterGoal": "Meta de Agua: {goal} ml",
+  "@waterGoal": {
+    "description": "Meta de consumo de agua del usuario",
+    "placeholders": {
+      "goal": {
+        "type": "int",
+        "example": "2000"
+      }
+    }
+  },
+  "waterConsumed": "Consumido: {consumed} ml",
+  "@waterConsumed": {
+    "description": "Cantidad de agua consumida por el usuario",
+    "placeholders": {
+      "consumed": {
+        "type": "int",
+        "example": "500"
+      }
+    }
+  },
+  "selectLanguage": "Seleccionar Idioma",
+  "english": "Inglés",
+  "spanish": "Español",
+  "french": "Francés",
+  "language": "Idioma",
+  "notifications": "Notificaciones",
+  "enableNotifications": "Activar Notificaciones",
+  "theme": "Tema",
+  "lightTheme": "Tema Claro",
+  "darkTheme": "Tema Oscuro",
+  "systemTheme": "Tema del Sistema",
+  "account": "Cuenta",
+  "deleteAccount": "Eliminar Cuenta",
+  "confirmDeleteAccount": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.",
+  "delete": "Eliminar",
+  "cancel": "Cancelar",
+  "reauthenticateToDelete": "Por favor, inicia sesión de nuevo para eliminar tu cuenta.",
+  "profileUpdatedSuccessfully": "¡Perfil actualizado con éxito!",
+  "mealLoggedSuccessfully": "¡Comida registrada con éxito!",
+  "dataSavedSuccessfully": "¡Datos guardados con éxito!",
+  "requiredField": "Este campo es obligatorio.",
+  "invalidNumber": "Por favor, introduce un número válido.",
+  "minAge": "La edad debe ser de al menos {min} años.",
+  "@minAge": {
+    "description": "Mensaje de validación para edad mínima",
+    "placeholders": {
+      "min": {
+        "type": "int",
+        "example": "18"
+      }
+    }
+  },
+  "maxAge": "La edad debe ser como máximo {max} años.",
+  "@maxAge": {
+    "description": "Mensaje de validación para edad máxima",
+    "placeholders": {
+      "max": {
+        "type": "int",
+        "example": "99"
+      }
+    }
+  },
+  "minWeight": "El peso debe ser de al menos {min} {unit}.",
+  "@minWeight": {
+    "description": "Mensaje de validación para peso mínimo",
+    "placeholders": {
+      "min": {
+        "type": "double",
+        "example": "40.0"
+      },
+      "unit": {
+        "type": "String",
+        "example": "kg"
+      }
+    }
+  },
+  "maxWeight": "El peso debe ser como máximo {max} {unit}.",
+  "@maxWeight": {
+    "description": "Mensaje de validación para peso máximo",
+    "placeholders": {
+      "max": {
+        "type": "double",
+        "example": "200.0"
+      },
+      "unit": {
+        "type": "String",
+        "example": "kg"
+      }
+    }
+  },
+  "minHeight": "La altura debe ser de al menos {min} {unit}.",
+  "@minHeight": {
+    "description": "Mensaje de validación para altura mínima",
+    "placeholders": {
+      "min": {
+        "type": "double",
+        "example": "100.0"
+      },
+      "unit": {
+        "type": "String",
+        "example": "cm"
+      }
+    }
+  },
+  "maxHeight": "La altura debe ser como máximo {max} {unit}.",
+  "@maxHeight": {
+    "description": "Mensaje de validación para altura máxima",
+    "placeholders": {
+      "max": {
+        "type": "double",
+        "example": "250.0"
+      },
+      "unit": {
+        "type": "String",
+        "example": "cm"
+      }
+    }
+  },
+  "sedentary": "Sedentario (poco o ningún ejercicio)",
+  "lightlyActive": "Ligeramente activo (ejercicio ligero/deportes 1-3 días/semana)",
+  "moderatelyActive": "Moderadamente activo (ejercicio moderado/deportes 3-5 días/semana)",
+  "veryActive": "Muy activo (ejercicio intenso/deportes 6-7 días a la semana)",
+  "extraActive": "Extra activo (ejercicio muy intenso/deportes y trabajo físico o doble entrenamiento)",
+  "maintainWeight": "Mantener peso",
+  "mildWeightLoss": "Pérdida de peso leve (0.25 kg/semana)",
+  "weightLoss": "Pérdida de peso (0.5 kg/semana)",
+  "extremeWeightLoss": "Pérdida de peso extrema (1 kg/semana)",
+  "mildWeightGain": "Aumento de peso leve (0.25 kg/semana)",
+  "weightGain": "Aumento de peso (0.5 kg/semana)",
+  "extremeWeightGain": "Aumento de peso extremo (1 kg/semana)",
+  "vegetarian": "Vegetariano",
+  "vegan": "Vegano",
+  "pescatarian": "Pescatariano",
+  "glutenFree": "Sin Gluten",
+  "dairyFree": "Sin Lácteos",
+  "keto": "Keto",
+  "paleo": "Paleo",
+  "lowCarb": "Bajo en Carbohidratos",
+  "lowFat": "Bajo en Grasas",
+  "highProtein": "Alto en Proteínas",
+  "nuts": "Frutos Secos",
+  "shellfish": "Mariscos",
+  "soy": "Soja",
+  "eggs": "Huevos",
+  "fish": "Pescado",
+  "other": "Otro",
+  "needsUppercaseLetter": "Necesita mayúscula",
+  "needsLowercaseLetter": "Necesita minúscula",
+  "needsNumber": "Necesita un número",
+  "needsSpecialCharacter": "Necesita un carácter especial",
+  "strongPassword": "Contraseña segura",
+  "chooseStrongerPassword": "Por favor, elige una contraseña más segura según los criterios.",
+  "emailAlreadyInUse": "Ya existe una cuenta para este correo. Por favor, inicia sesión.",
+  "createAccountJourney": "Crea una cuenta para comenzar tu viaje nutricional.",
+  "pleaseEnterEmail": "Por favor, introduce tu correo electrónico",
+  "pleaseEnterPassword": "Por favor, introduce tu contraseña",
+  "pleaseConfirmPassword": "Por favor, confirma tu contraseña",
+  "passwordTooShort": "Demasiado corta (mín. 8 caracteres)",
+  "passwordCriteriaNotMet": "Por favor, asegúrate de que tu contraseña cumple todos los criterios.",
+  "welcomeToNutrivision": "¡Bienvenido a NutriVision!",
+  "createAccountToStart": "Crea una cuenta para comenzar tu viaje nutricional.",
+  "emailExample": "tu@ejemplo.com",
+  "tellUsAboutYourself": "Cuéntanos un poco sobre ti",
+  "helpsCalculateNeeds": "Esto nos ayuda a calcular tus necesidades nutricionales.",
+  "nameExample": "Ej., Alex Pérez",
+  "pleaseEnterName": "Por favor, introduce tu nombre",
+  "nameTooShort": "El nombre parece demasiado corto (mín. 2 caracteres)",
+  "ageExample": "Ej., 30",
+  "pleaseEnterAge": "Por favor, introduce tu edad",
+  "unrealisticAge": "Por favor, introduce una edad realista (13-100 años)",
+  "weightExample": "Ej., 70",
+  "pleaseEnterWeight": "Por favor, introduce tu peso",
+  "invalidPositiveWeight": "Por favor, introduce un peso positivo válido",
+  "weightTooHigh": "El peso parece demasiado alto, por favor verifica",
+  "heightExampleCm": "Ej., 175",
+  "heightExampleFtIn": "Ej., 5.10 (5 pies 10 pulgadas)",
+  "pleaseEnterHeight": "Por favor, introduce tu altura",
+  "invalidPositiveHeight": "Por favor, introduce una altura positiva válida",
+  "heightFtInFormatHint": "Usa . para pies-pulgadas (ej., 5.10)",
+  "invalidFtInFormat": "Formato pies-pulgadas inválido (ej., 5.10)",
+  "validFtInExample": "Pies-pulgadas válido: ej., 5.10 (0-11 pulgadas)",
+  "heightTooHigh": "La altura parece demasiado alta, por favor verifica",
+  "heightTooHighCm": "La altura parece demasiado alta (máx. 300cm)",
+  "heightTooLowCm": "La altura parece demasiado baja (mín. 50cm)",
+  "pleaseSelectBiologicalSex": "Por favor, selecciona tu sexo biológico",
+  "pleaseSelectActivityLevel": "Por favor, selecciona tu nivel de actividad",
+  "pleaseSelectDietaryGoal": "Por favor, selecciona tu objetivo dietético principal",
+  "errorNoUserLoggedIn": "Error: Ningún usuario ha iniciado sesión. Por favor, inicia sesión de nuevo.",
+  "profileSavedSuccessProfileSetup": "¡Perfil y objetivos nutricionales guardados! Siguiente: Preferencias Dietéticas.",
+  "failedToSaveProfile": "Error al guardar el perfil. Por favor, inténtalo de nuevo.",
+  "ftIn": "pies-pulgadas",
+  "otherBiologicalSex": "Otro",
+  "activityLevelSedentary": "Sedentario",
+  "activityLevelLight": "Ligero",
+  "activityLevelModerate": "Moderado",
+  "activityLevelActive": "Activo",
+  "activityLevelVeryActive": "Muy Activo",
+  "goalLoseWeight": "Perder Peso",
+  "goalMaintainWeight": "Mantener Peso",
+  "goalGainWeight": "Ganar Peso",
+  "loseWeightGoal": "Perder Peso",
+  "gainMuscleGoal": "Ganar Músculo",
+  "improveHealthGoal": "Mejorar la Salud",
+
+  "refreshData": "Actualizar Datos",
+  "couldNotLoadUserData": "No se pudieron cargar los datos del usuario. Por favor, inténtalo de nuevo.",
+  "retryButton": "Reintentar",
+  "userGeneric": "Usuario",
+  "welcomeBackMessage": "¡Bienvenido de nuevo, {userName}!",
+  "@welcomeBackMessage": {
+    "description": "Mensaje de bienvenida en el panel de control saludando al usuario",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "example": "Alex"
+      }
+    }
+  },
+  "todaysSummary": "Resumen de Hoy",
+  "summaryForDate": "Resumen para {date}",
+  "@summaryForDate": {
+    "description": "Resumen del panel de control para una fecha específica",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "2023-10-26"
+      }
+    }
+  },
+  "kcalUnit": "kcal",
+  "gramsUnit": "g",
+  "logNewMealButton": "Registrar Nueva Comida",
+  "navigateToEditProfilePlaceholder": "Navegar a Editar Perfil/Preferencias - PENDIENTE",
+  "editProfilePreferencesButton": "Editar Perfil y Preferencias",
+
+  "dietaryPreferencesHeadline": "¡Ayúdanos a personalizar tu experiencia!",
+  "dietaryPreferencesSubheadline": "Selecciona cualquier preferencia y enumera alergias o restricciones.",
+  "commonDietaryPreferencesTitle": "Preferencias Dietéticas Comunes (Opcional):",
+  "commonAllergiesTitle": "Alergias/Intolerancias Comunes (Opcional):",
+  "otherRestrictionsTitle": "Otras Notas/Restricciones (Opcional):",
+  "otherRestrictionsLabel": "Otras Notas o Restricciones Dietéticas",
+  "otherRestrictionsHint": "Ej., bajo en sodio, evitar comida picante, aversiones específicas",
+  "savePreferencesButton": "Guardar Preferencias y Continuar",
+  "dietaryPreferencesSaved": "¡Preferencias dietéticas guardadas!",
+  "failedToSavePreferences": "Error al guardar las preferencias: {error}",
+  "@failedToSavePreferences": {
+    "description": "Mensaje de error cuando falla el guardado de las preferencias dietéticas",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Error de red"
+      }
+    }
+  },
+  "none": "Ninguna",
+
+  "logMealHeadline": "¿Qué comiste?",
+  "mealDescriptionLabel": "Descripción de la Comida",
+  "mealDescriptionHint": "Ej., Ensalada de pollo a la parrilla, Rodajas de manzana",
+  "pleaseEnterMealDescription": "Por favor, introduce una descripción de la comida",
+  "descriptionTooShort": "La descripción parece demasiado corta",
+  "descriptionTooLong": "Descripción demasiado larga (máx. {maxLength} caracteres)",
+  "@descriptionTooLong": {
+    "description": "Mensaje de validación para la descripción de la comida que excede la longitud máxima",
+    "placeholders": {
+      "maxLength": {
+        "type": "String",
+        "example": "150"
+      }
+    }
+  },
+  "dateLabel": "Fecha",
+  "timeLabel": "Hora",
+  "caloriesLabelKcal": "Calorías (kcal)",
+  "caloriesHint": "Ej., 350",
+  "pleaseEnterCalories": "Por favor, introduce las calorías",
+  "pleaseEnterValidPositiveNumber": "Por favor, introduce un número positivo válido",
+  "caloriesTooHighSingleMeal": "Las calorías parecen muy altas para una sola comida",
+  "proteinLabelG": "Proteína (g)",
+  "proteinHint": "Ej., 30",
+  "enterProteinOrZero": "Introduce proteína (0 si no hay)",
+  "invalidAmount": "Cantidad inválida",
+  "proteinTooHigh": "La proteína parece muy alta",
+  "carbsLabelG": "Carbohidratos (g)",
+  "carbsHint": "Ej., 45",
+  "enterCarbsOrZero": "Introduce carbohidratos (0 si no hay)",
+  "carbsTooHigh": "Los carbohidratos parecen muy altos",
+  "fatLabelG": "Grasa (g)",
+  "fatHint": "Ej., 15",
+  "enterFatOrZero": "Introduce grasa (0 si no hay)",
+  "fatTooHigh": "La grasa parece muy alta",
+  "failedToLogMeal": "Error al registrar la comida: {error}",
+  "@failedToLogMeal": {
+    "description": "Mensaje de error al fallar el registro de una comida",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Error de red"
+      }
+    }
+  },
+  "forgotPasswordPrompt": "Introduce tu dirección de correo electrónico a continuación y te enviaremos un enlace para restablecer tu contraseña.",
+  "passwordResetEmailSentFeedback": "Correo electrónico de restablecimiento de contraseña enviado con éxito. Por favor, revisa tu bandeja de entrada (y la carpeta de spam).",
+  "backToSignIn": "Volver a Iniciar Sesión"
+}

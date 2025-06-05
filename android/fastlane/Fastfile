@@ -1,0 +1,15 @@
+fastlane_version "2.212.1"
+
+default_platform :android
+
+platform :android do
+  desc "Build Android app (without Firebase distribution)"
+  lane :beta do
+    gradle(
+      task: "clean assembleRelease",
+      project_dir: "../",
+      gradle_path: "$(pwd)/../gradlew"
+    )
+    # Firebase distribution will be handled by the distribute.sh script
+  end
+end

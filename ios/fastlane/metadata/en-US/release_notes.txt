@@ -1,0 +1,13 @@
+NutriVision v2.1.2 - Beta Test Release
+
+What's new:
+- Fixed AI meal logging serialization issue
+- Enhanced Firestore integration for meal tracking
+- Improved error handling and logging
+- Advanced Meal Management features (32% complete)
+
+Known issues:
+- Some nutritional analytics features are still in development
+- Weekly meal reports are not yet available
+
+This is a beta test release. Please report any issues you encounter.

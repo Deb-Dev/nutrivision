@@ -1,0 +1,137 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# iOS build artifacts
+**/ios/build/
+**/ios/**/*.dSYM.zip
+**/ios/**/*.ipa
+**/ios/**/*.app.dSYM/
+**/ios/**/*.xcarchive
+ios/build/
+ios/build/**/*
+ios/**/*NutriVision.app.dSYM.zip
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.staging
+.env.production
+
+# Code generation
+*.g.dart
+*.freezed.dart
+*.config.dart
+
+# Hive database files
+*.hive
+*.lock
+
+# Coverage
+coverage/
+lcov.info
+
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+# Uncomment if you don't want to track Firebase config files
+# **/GoogleService-Info.plist
+# **/google-services.json
+
+# IDE
+.vscode/settings.json
+.vscode/launch.json
+
+# Logs
+logs/
+*.log
+
+# Fastlane
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
+
+# Distribution artifacts
+*.ipa
+*.apk
+*.aab
+*.appbundle
+*.app.zip
+*.dSYM.zip
+
+# Temporary files
+tmp/
+temp/
+
+# API keys and secrets
+secrets.json
+secret_keys.dart
+**/android/key.properties
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# iOS/XCode related
+**/ios/.generated/
+**/ios/Flutter/Generated.xcconfig
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Pods (specifically include all of Pods directory)
+**/ios/Pods/
+**/macos/Pods/
+
+# Large dill files
+*.dill
+*.dill.track.dill
+
+# Local configuration
+local.properties

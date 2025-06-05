@@ -1,0 +1,15 @@
+NutriVision v2.1.7 - Beta Release (May 27, 2025)
+
+NEW FEATURES:
+- Modern tab-based navigation with 5 main sections: Home, Log, Stats, Goals, and Profile
+- Redesigned Home screen with Material 3 design and card-based layout
+- Enhanced daily nutrition tracking visualization
+- Quick access to recently logged meals
+- Time-based personalized greetings
+
+FIXES:
+- Fixed navigation flow issues across the app
+- Added missing localization strings
+- Improved overall user experience and interface consistency
+
+This is a beta test release. Please report any issues through the feedback form in the app.

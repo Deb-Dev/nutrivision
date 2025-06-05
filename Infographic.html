@@ -1,0 +1,498 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriVision: Project Overview Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- 
+        Narrative & Structure Plan:
+        1.  Introduction/Hook: What is NutriVision? Vision for the app.
+        2.  Project Roadmap Overview: High-level phases (MVP, AI Enhancement, Advanced Personalization, Integrations, Monetization).
+        3.  Phase 1: MVP Deep Dive: Key epics (Onboarding, Manual Logging) and feature highlights.
+        4.  Phase 2: AI-Powered Tracking: Focus on AI meal photo logging.
+        5.  Phase 3: Personalization & Coaching: LLM-powered meal planning and intelligent coaching.
+        6.  Phase 4: Connectivity & Community: Integrations (HealthKit, Fitbit) and social features.
+        7.  Phase 5: Business Model: Freemium and premium features.
+        8.  Technology Stack Insights: Mention of front-end (React Native/Flutter), back-end (Firebase/AWS), AI/LLM usage.
+        9.  Conclusion: Reiterate the app's goal and future.
+
+        Selected Color Palette: Energetic & Playful
+        Primary: #FF6B6B (Coral Red)
+        Secondary: #FFD166 (Sunny Yellow)
+        Accent 1: #06D6A0 (Turquoise Green)
+        Accent 2: #118AB2 (Cerulean Blue)
+        Neutral/Background: #F0F4F8 (Light Blue-Gray for body), Card Background: #FFFFFF
+        Text: #1E293B (Slate 800), Heading Text: #0F172A (Slate 900)
+
+        Visualization Choices (Confirming NO SVG, NO MERMAID JS):
+        - Project Roadmap: HTML/CSS styled cards in a sequence.
+        - Phase 1 Story Distribution: Chart.js Donut Chart (Canvas).
+        - Onboarding Methods: Chart.js Bar Chart (Canvas).
+        - AI Meal Logging Flow: HTML/CSS styled divs with Unicode arrows (→).
+        - Tech Stack: HTML/CSS styled blocks with Unicode icons.
+        - Freemium vs. Premium: HTML/CSS Table.
+        - Other sections: Styled text, lists, and cards.
+        - Explicit confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F4F8; /* Light Blue-Gray */
+            color: #1E293B; /* Slate 800 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px; /* Adjusted for better fit in grid */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; 
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+                max-height: 400px;
+            }
+        }
+        .header-card {
+            background-color: #118AB2; /* Cerulean Blue */
+            color: white;
+        }
+        .section-title {
+            color: #0F172A; /* Slate 900 */
+            border-bottom: 3px solid #FF6B6B; /* Coral Red */
+            padding-bottom: 0.5rem;
+        }
+        .stat-card {
+            background-color: #FFFFFF;
+            border-left: 5px solid #FFD166; /* Sunny Yellow */
+        }
+        .feature-card {
+            background-color: #FFFFFF;
+            border-top: 5px solid #06D6A0; /* Turquoise Green */
+        }
+        .phase-card {
+            background-color: #FFFFFF;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .phase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .tech-stack-item {
+            background-color: #E0F2FE; /* Light Sky Blue for tech items */
+            border: 1px solid #BAE6FD; /* Sky Blue border */
+        }
+        .flow-step {
+            background-color: #FFFFFF;
+            border: 2px solid #118AB2; /* Cerulean Blue */
+            color: #118AB2; /* Cerulean Blue */
+        }
+        .flow-arrow {
+            color: #FF6B6B; /* Coral Red */
+        }
+         /* Custom sticky nav styling */
+        #sticky-nav {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 50;
+        }
+        #sticky-nav a {
+            transition: color 0.3s ease, border-bottom-color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        #sticky-nav a:hover, #sticky-nav a.active {
+            color: #FF6B6B; /* Coral Red */
+            border-bottom-color: #FF6B6B; /* Coral Red */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav id="sticky-nav" class="sticky top-0 w-full py-3 px-4 md:px-8">
+        <div class="container mx-auto flex flex-wrap justify-center items-center space-x-4 text-sm md:text-base">
+            <a href="#introduction" class="font-semibold text-slate-700 hover:text-coral-red px-2 py-1">Intro</a>
+            <a href="#roadmap" class="font-semibold text-slate-700 hover:text-coral-red px-2 py-1">Roadmap</a>
+            <a href="#phase1" class="font-semibold text-slate-700 hover:text-coral-red px-2 py-1">Phase 1</a>
+            <a href="#phase2" class="font-semibold text-slate-700 hover:text-coral-red px-2 py-1">Phase 2</a>
+            <a href="#phase3" class="font-semibold text-slate-700 hover:text-coral-red px-2 py-1">Phase 3</a>
+            <a href="#phase4" class="font-semibold text-slate-700 hover:text-coral-red px-2 py-1">Phase 4</a>
+            <a href="#phase5" class="font-semibold text-slate-700 hover:text-coral-red px-2 py-1">Phase 5</a>
+            <a href="#techstack" class="font-semibold text-slate-700 hover:text-coral-red px-2 py-1">Tech</a>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header id="introduction" class="text-center py-8 md:py-12 rounded-xl shadow-xl header-card mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">NutriVision: Project Blueprint</h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto">
+                An in-depth look at the phased development of NutriVision, a cutting-edge application designed to revolutionize personalized nutrition tracking and guidance through intelligent features and user-centric design.
+            </p>
+        </header>
+
+        <section id="roadmap" class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center section-title">Project Development Roadmap</h2>
+            <p class="text-center text-lg text-slate-700 mb-10 max-w-2xl mx-auto">NutriVision's development is structured in distinct phases, each building upon the last to deliver a comprehensive and evolving nutritional companion.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="phase-card rounded-lg shadow-lg p-6">
+                    <h3 class="text-2xl font-semibold mb-3" style="color: #FF6B6B;">Phase 1: MVP Foundation</h3>
+                    <p class="text-slate-600">Core onboarding, manual meal logging, basic tracking, and initial profile setup. Establishing the essential user experience.</p>
+                </div>
+                <div class="phase-card rounded-lg shadow-lg p-6">
+                    <h3 class="text-2xl font-semibold mb-3" style="color: #FFD166;">Phase 2: AI Enhancement</h3>
+                    <p class="text-slate-600">Introducing AI-powered photo meal logging for intuitive and rapid food tracking, reducing manual input.</p>
+                </div>
+                <div class="phase-card rounded-lg shadow-lg p-6">
+                    <h3 class="text-2xl font-semibold mb-3" style="color: #06D6A0;">Phase 3: Advanced Personalization</h3>
+                    <p class="text-slate-600">Leveraging LLMs for personalized meal planning and intelligent coaching, offering tailored guidance.</p>
+                </div>
+                <div class="phase-card rounded-lg shadow-lg p-6 md:col-span-1 lg:col-span-1">
+                    <h3 class="text-2xl font-semibold mb-3" style="color: #118AB2;">Phase 4: Connectivity & Community</h3>
+                    <p class="text-slate-600">Integrating with external platforms (Apple Health, Fitbit) and introducing initial social sharing features.</p>
+                </div>
+                <div class="phase-card rounded-lg shadow-lg p-6 md:col-span-1 lg:col-span-2">
+                    <h3 class="text-2xl font-semibold mb-3" style="color: #7952B3;">Phase 5: Monetization & Refinement</h3>
+                    <p class="text-slate-600">Implementing a freemium model, offering premium subscriptions for advanced features, and ongoing system enhancements based on user data.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="phase1" class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center section-title">Phase 1: MVP - Laying the Groundwork</h2>
+            <p class="text-center text-lg text-slate-700 mb-10 max-w-2xl mx-auto">The Minimum Viable Product focuses on delivering essential functionalities for user onboarding, basic meal tracking, and profile personalization. This phase is crucial for gathering initial user feedback and validating core concepts.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4" style="color: #FF6B6B;">MVP User Story Distribution</h3>
+                    <p class="text-slate-600 mb-4">The MVP is divided into two primary epics: User Onboarding & Profile Management, and Manual Meal Logging & Basic Tracking. This chart shows the distribution of user stories across these initial epics.</p>
+                    <div class="chart-container">
+                        <canvas id="mvpEpicsChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4" style="color: #FF6B6B;">Onboarding Flexibility</h3>
+                    <p class="text-slate-600 mb-4">NutriVision aims for a seamless start. Users can sign up or sign in using various methods, catering to different preferences for account creation and access.</p>
+                    <div class="chart-container">
+                        <canvas id="onboardingMethodsChart"></canvas>
+                    </div>
+                </div>
+                <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6 mt-8">
+                    <h3 class="text-xl font-semibold mb-4" style="color: #FF6B6B;">Key Features in MVP:</h3>
+                     <p class="text-slate-600 mb-4">The MVP will deliver a functional core experience, including:</p>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li>Secure sign-up/sign-in (Email, Google, Apple).</li>
+                        <li>Initial user profile setup: demographics, goals, activity level.</li>
+                        <li>Dietary preferences and restrictions logging.</li>
+                        <li>Simple dashboard for daily progress tracking (calories, macros).</li>
+                        <li>Manual food logging via search from a comprehensive database.</li>
+                        <li>Barcode scanning for packaged food logging.</li>
+                        <li>Viewing daily nutritional breakdown and meal lists.</li>
+                        <li>Basic, rule-based meal suggestions for quick ideas.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="phase2" class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center section-title">Phase 2: AI-Powered Meal Tracking</h2>
+            <p class="text-center text-lg text-slate-700 mb-10 max-w-2xl mx-auto">This phase elevates the user experience by integrating Artificial Intelligence for meal logging. The goal is to make tracking faster, more intuitive, and less reliant on manual data entry.</p>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold mb-6 text-center" style="color: #FFD166;">AI Photo Meal Logging Flow</h3>
+                <p class="text-slate-600 mb-6 text-center">Users can simply take a photo of their meal, and the AI will attempt to identify food items and estimate portions.</p>
+                <div class="flex flex-col md:flex-row justify-around items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="flow-step rounded-lg p-4 text-center shadow">
+                        <span class="text-2xl block mb-1">📷</span> Capture/Select Photo
+                    </div>
+                    <div class="text-2xl font-bold flow-arrow hidden md:block">→</div>
+                    <div class="text-2xl font-bold flow-arrow block md:hidden">↓</div>
+                    <div class="flow-step rounded-lg p-4 text-center shadow">
+                        <span class="text-2xl block mb-1">🧠</span> AI Analysis & Recognition
+                    </div>
+                    <div class="text-2xl font-bold flow-arrow hidden md:block">→</div>
+                     <div class="text-2xl font-bold flow-arrow block md:hidden">↓</div>
+                    <div class="flow-step rounded-lg p-4 text-center shadow">
+                        <span class="text-2xl block mb-1">✏️</span> Confirm/Edit Items
+                    </div>
+                    <div class="text-2xl font-bold flow-arrow hidden md:block">→</div>
+                     <div class="text-2xl font-bold flow-arrow block md:hidden">↓</div>
+                    <div class="flow-step rounded-lg p-4 text-center shadow">
+                        <span class="text-2xl block mb-1">📊</span> Log & View Nutrients
+                    </div>
+                </div>
+                <p class="text-slate-600 mt-6 text-center">This AI-assisted process includes options for users to confirm, edit, or add items, ensuring accuracy while significantly speeding up the logging process.</p>
+            </div>
+        </section>
+
+        <section id="phase3" class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center section-title">Phase 3: Advanced Personalization & Coaching</h2>
+            <p class="text-center text-lg text-slate-700 mb-10 max-w-2xl mx-auto">NutriVision transitions into a truly intelligent nutritional assistant in this phase, utilizing Large Language Models (LLMs) for highly personalized meal planning and coaching.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="feature-card rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-3" style="color: #06D6A0;">LLM-Powered Weekly Meal Plans</h3>
+                    <p class="text-slate-600 mb-2">Users can request 7-day meal plans tailored to their specific dietary goals, calorie/macro targets, preferences, and allergies. Key aspects include:</p>
+                    <ul class="list-disc list-inside space-y-1 text-slate-700">
+                        <li>Strict adherence to allergies.</li>
+                        <li>Close alignment with nutritional targets.</li>
+                        <li>Variety in meal suggestions.</li>
+                        <li>Detailed view of ingredients and simple prep instructions.</li>
+                        <li>Option to swap meals and generate grocery lists.</li>
+                    </ul>
+                     <p class="text-sm text-slate-500 mt-3">Utilizes models like GPT-4 for generating diverse and relevant meal suggestions.</p>
+                </div>
+                <div class="feature-card rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-3" style="color: #06D6A0;">Intelligent Coaching & Feedback</h3>
+                    <p class="text-slate-600 mb-2">The app provides LLM-driven, constructive feedback and support:</p>
+                    <ul class="list-disc list-inside space-y-1 text-slate-700">
+                        <li>Real-time feedback on logged meals regarding goals.</li>
+                        <li>Personalized nudges and reminders (e.g., logging, hydration).</li>
+                        <li>Access to curated nutritional tips and evidence-based advice.</li>
+                        <li>Content reviewed by nutrition professionals for accuracy.</li>
+                    </ul>
+                    <p class="text-sm text-slate-500 mt-3">Aims to educate and motivate users towards healthier habits.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="phase4" class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center section-title">Phase 4: Connectivity & Community</h2>
+            <p class="text-center text-lg text-slate-700 mb-10 max-w-2xl mx-auto">Expanding NutriVision's ecosystem through integrations with popular health platforms and introducing initial community-oriented features to enhance user engagement and data sharing.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4" style="color: #118AB2;">External Platform Integrations</h3>
+                    <p class="text-slate-600 mb-4">Seamlessly connect NutriVision with other health and fitness apps:</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🍏</span>
+                            <div>
+                                <h4 class="font-semibold text-slate-800">Apple Health (HealthKit)</h4>
+                                <p class="text-sm text-slate-600">Share dietary energy, macronutrients, and weight with Apple Health. Read weight trends and activity calories from HealthKit.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">👟</span>
+                            <div>
+                                <h4 class="font-semibold text-slate-800">Fitbit API</h4>
+                                <p class="text-sm text-slate-600">Send logged food data to Fitbit. Retrieve activity data (calories burned, steps) and weight from Fitbit.</p>
+                            </div>
+                        </li>
+                    </ul>
+                     <p class="text-slate-600 mt-4">These integrations provide a more holistic view of the user's health and activity.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4" style="color: #118AB2;">Initial Community Features</h3>
+                    <p class="text-slate-600 mb-4">Fostering a sense of connection and motivation:</p>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li>Share daily/weekly progress snippets externally (social media, messaging).</li>
+                        <li>Save and quickly log personal "My Recipes/Meals".</li>
+                        <li>Optionally participate in simple community challenges and view leaderboards (e.g., logging streaks).</li>
+                    </ul>
+                    <p class="text-slate-600 mt-4">These features aim to support users through shared experiences and personal achievements.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="phase5" class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center section-title">Phase 5: Monetization & Refinement</h2>
+            <p class="text-center text-lg text-slate-700 mb-10 max-w-2xl mx-auto">Introducing a sustainable business model through a freemium approach, offering enhanced capabilities for premium subscribers, alongside continuous app refinement.</p>
+            <div class="bg-white rounded-lg shadow-md p-6 overflow-x-auto">
+                <h3 class="text-xl font-semibold mb-4 text-center" style="color: #7952B3;">Freemium vs. Premium Features</h3>
+                <p class="text-slate-600 mb-6 text-center">NutriVision will offer a robust free tier with core functionalities, while premium subscribers unlock advanced tools and deeper personalization.</p>
+                <table class="w-full min-w-max text-left">
+                    <thead>
+                        <tr class="border-b">
+                            <th class="p-3 font-semibold text-slate-800">Feature Category</th>
+                            <th class="p-3 font-semibold text-slate-800">Free Tier Access</th>
+                            <th class="p-3 font-semibold text-slate-800">Premium Tier Benefits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b hover:bg-slate-50">
+                            <td class="p-3 text-slate-700">Meal Planning</td>
+                            <td class="p-3 text-slate-700">Basic suggestions, limited plan generation (e.g., 1/week)</td>
+                            <td class="p-3 text-slate-700 font-medium" style="color: #7952B3;">Unlimited personalized weekly meal plans, unlimited meal swaps</td>
+                        </tr>
+                        <tr class="border-b hover:bg-slate-50">
+                            <td class="p-3 text-slate-700">AI Coaching</td>
+                            <td class="p-3 text-slate-700">Basic real-time feedback on meal logs</td>
+                            <td class="p-3 text-slate-700 font-medium" style="color: #7952B3;">Enhanced, proactive insights, trend analysis, detailed suggestions</td>
+                        </tr>
+                        <tr class="border-b hover:bg-slate-50">
+                            <td class="p-3 text-slate-700">Analytics & Reports</td>
+                            <td class="p-3 text-slate-700">Basic daily dashboard</td>
+                            <td class="p-3 text-slate-700 font-medium" style="color: #7952B3;">Advanced analytics, weekly/monthly trends, micronutrient deep-dives, data export</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-slate-700">Core Logging & Profile</td>
+                            <td class="p-3 text-slate-700">Full access</td>
+                            <td class="p-3 text-slate-700">Full access</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text-sm text-slate-500 mt-4">Subscription management will be handled via native in-app purchases (Apple App Store, Google Play Store).</p>
+            </div>
+        </section>
+
+        <section id="techstack" class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center section-title">Technology Stack Insights</h2>
+            <p class="text-center text-lg text-slate-700 mb-10 max-w-2xl mx-auto">NutriVision will be built using modern, scalable technologies to ensure a robust and performant application across platforms.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="tech-stack-item rounded-lg p-6 shadow">
+                    <h3 class="text-lg font-semibold mb-2" style="color: #1E293B;"><span class="text-xl mr-2">📱</span>Front-End Framework</h3>
+                    <p class="text-slate-700">Cross-platform development using either <strong style="color: #FF6B6B;">Flutter</strong> or <strong style="color: #FF6B6B;">React Native</strong> for a consistent UI/UX on iOS and Android.</p>
+                </div>
+                <div class="tech-stack-item rounded-lg p-6 shadow">
+                    <h3 class="text-lg font-semibold mb-2" style="color: #1E293B;"><span class="text-xl mr-2">☁️</span>Back-End Services</h3>
+                    <p class="text-slate-700">Scalable backend infrastructure on <strong style="color: #FFD166;">Firebase</strong> or <strong style="color: #FFD166;">AWS</strong>, utilizing serverless functions (e.g., Cloud Functions, Lambda) and managed services.</p>
+                </div>
+                <div class="tech-stack-item rounded-lg p-6 shadow">
+                    <h3 class="text-lg font-semibold mb-2" style="color: #1E293B;"><span class="text-xl mr-2">💾</span>Database</h3>
+                    <p class="text-slate-700">NoSQL databases like <strong style="color: #06D6A0;">Firestore</strong> or <strong style="color: #06D6A0;">MongoDB/DynamoDB</strong> for flexible and efficient data storage.</p>
+                </div>
+                <div class="tech-stack-item rounded-lg p-6 shadow">
+                    <h3 class="text-lg font-semibold mb-2" style="color: #1E293B;"><span class="text-xl mr-2">🔑</span>Authentication</h3>
+                    <p class="text-slate-700">Secure user authentication via <strong style="color: #118AB2;">Firebase Authentication</strong>, <strong style="color: #118AB2;">AWS Cognito</strong>, or custom solutions.</p>
+                </div>
+                <div class="tech-stack-item rounded-lg p-6 shadow lg:col-span-2">
+                    <h3 class="text-lg font-semibold mb-2" style="color: #1E293B;"><span class="text-xl mr-2">💡</span>AI & Machine Learning</h3>
+                    <p class="text-slate-700">
+                        Image recognition for photo meal logging (e.g., <strong style="color: #7952B3;">Google Cloud Vision API</strong>, <strong style="color: #7952B3;">AWS Rekognition</strong>).
+                        Large Language Models (e.g., <strong style="color: #7952B3;">GPT-4, GPT-3.5-turbo</strong>) for personalized meal planning and coaching.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center py-10 border-t border-slate-300">
+            <p class="text-2xl font-bold mb-3" style="color: #FF6B6B;">NutriVision: Your Future of Personalized Nutrition</p>
+            <p class="text-slate-600">This infographic outlines the comprehensive plan for NutriVision, an application poised to empower users with intelligent tools and personalized insights for a healthier lifestyle. The phased approach ensures iterative development and refinement based on user needs and technological advancements.</p>
+            <p class="text-sm text-slate-500 mt-6">&copy; 2025 NutriVision Project. All data based on the "NutriVision: Phased User Stories" document.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function wrapLabels(label, maxWidth) {
+            if (typeof label !== 'string' || label.length <= maxWidth) {
+                return label;
+            }
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            lines.push(currentLine.trim());
+            return lines;
+        }
+
+        const tooltipTitleCallback = function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        };
+
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: { size: 12, family: 'Inter' },
+                        color: '#475569' // Slate 600
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    titleFont: { size: 14, family: 'Inter', weight: 'bold' },
+                    bodyFont: { size: 12, family: 'Inter' },
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: '#E2E8F0' }, // Slate 200
+                    ticks: { color: '#64748B' } // Slate 500
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#64748B' } // Slate 500
+                }
+            }
+        };
+        
+        const mvpEpicsData = {
+            labels: ['User Onboarding & Profile (7 stories)', 'Manual Meal Logging (4 stories)'].map(l => wrapLabels(l, 20)),
+            datasets: [{
+                label: 'User Stories per Epic',
+                data: [7, 4],
+                backgroundColor: ['#FF6B6B', '#FFD166'],
+                borderColor: ['#FFFFFF', '#FFFFFF'],
+                borderWidth: 2,
+                hoverOffset: 4
+            }]
+        };
+        new Chart(document.getElementById('mvpEpicsChart'), {
+            type: 'doughnut',
+            data: mvpEpicsData,
+            options: { ...commonChartOptions, cutout: '60%' }
+        });
+
+        const onboardingMethodsData = {
+            labels: ['Email & Password', 'Google Sign-In', 'Apple Sign-In'].map(l => wrapLabels(l, 16)),
+            datasets: [{
+                label: 'Available Onboarding Methods',
+                data: [100, 90, 85], // Placeholder data representing availability/preference
+                backgroundColor: ['#06D6A0', '#118AB2', '#7952B3'],
+                borderColor: ['#06D6A0', '#118AB2', '#7952B3'],
+                borderWidth: 1,
+                borderRadius: 5
+            }]
+        };
+        new Chart(document.getElementById('onboardingMethodsChart'), {
+            type: 'bar',
+            data: onboardingMethodsData,
+            options: { ...commonChartOptions, indexAxis: 'y', scales: { x: { beginAtZero: true, max: 100, ticks: { callback: value => value + '%' } } } }
+        });
+
+        // Sticky Nav active state
+        const navLinks = document.querySelectorAll('#sticky-nav a');
+        const sections = document.querySelectorAll('section[id], header[id]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 80) { // 80 as offset for nav height
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

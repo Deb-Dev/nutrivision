@@ -1,0 +1,53 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "nutrivision-cae68",
+          "appId": "1:115156539680:android:c5ada66de89205341f9f45",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "nutrivision-cae68",
+          "appId": "1:115156539680:ios:b731050a1eda881d1f9f45",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "macos": {
+        "default": {
+          "projectId": "nutrivision-cae68",
+          "appId": "1:115156539680:ios:c9294fc85a01a14c1f9f45",
+          "uploadDebugSymbols": false,
+          "fileOutput": "macos/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "nutrivision-cae68",
+          "configurations": {
+            "android": "1:115156539680:android:c5ada66de89205341f9f45",
+            "ios": "1:115156539680:ios:b731050a1eda881d1f9f45",
+            "macos": "1:115156539680:ios:c9294fc85a01a14c1f9f45",
+            "web": "1:115156539680:web:432b5f46e6cf019a1f9f45",
+            "windows": "1:115156539680:web:83d9baf15a2198f51f9f45"
+          }
+        }
+      }
+    }
+  },
+  "appdistribution": {
+    "android": {
+      "automaticPublish": false,
+      "groups": "beta-testers",
+      "releaseNotes": "Release notes for version 2.1.2\n- Fixed AI meal logging serialization issue\n- Enhanced Firestore integration\n- Improved error handling"
+    },
+    "ios": {
+      "automaticPublish": false,
+      "groups": "beta-testers",
+      "releaseNotes": "Release notes for version 2.1.2\n- Fixed AI meal logging serialization issue\n- Enhanced Firestore integration\n- Improved error handling"
+    }
+  }
+}
