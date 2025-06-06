@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.2.1] - 2025-06-05
 
+### Added
+- **Dashboard Enhancements**: Added quick access to favorites from the dashboard
+  - Added "Favorites" card in the More Actions section
+  - Integrated with the existing FavoriteMealsScreen for seamless navigation
+  - Used consistent styling with other quick action cards
+
 ### Fixed
 - **Nutritional Goal Tracking**: Fixed issue where consumed nutrients weren't being reflected in goal progress
   - Implemented proper data fetching from meal logs to calculate daily nutrition totals

@@ -6,6 +6,7 @@ import 'package:nutrivision/core/providers/firebase_providers.dart';
 import 'package:nutrivision/features/ai_meal_logging/presentation/pages/ai_photo_meal_page.dart';
 import 'package:nutrivision/enhanced_log_meal_screen.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/meal_history_screen.dart';
+import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/favorite_meals_screen.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/providers/meal_history_provider.dart';
 import 'package:nutrivision/core/models/meal_models.dart';
 import 'package:nutrivision/meal_suggestions_screen.dart';
@@ -464,43 +465,61 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   const SizedBox(height: 16),
 
                   // Secondary Actions Row (smaller, less prominent)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildQuickActionCard(
-                        context,
-                        icon: Icons.search,
-                        title: l10n.searchFoods,
-                        color: theme.colorScheme.secondary,
-                        onTap: () async {
-                          final result = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const EnhancedLogMealScreen(),
-                            ),
-                          );
-                          if (result == true && mounted) {
-                            _loadDashboardData();
-                          }
-                        },
-                      ),
-                      _buildQuickActionCard(
-                        context,
-                        icon: Icons.restaurant_menu,
-                        title: l10n.mealSuggestions,
-                        color: theme.colorScheme.secondary,
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const MealSuggestionsScreen(),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildQuickActionCard(
+                          context,
+                          icon: Icons.search,
+                          title: l10n.searchFoods,
+                          color: theme.colorScheme.secondary,
+                          onTap: () async {
+                            final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const EnhancedLogMealScreen(),
+                              ),
+                            );
+                            if (result == true && mounted) {
+                              _loadDashboardData();
+                            }
+                          },
+                        ),
+                        _buildQuickActionCard(
+                          context,
+                          icon: Icons.favorite,
+                          title: l10n.favorites,
+                          color: theme.colorScheme.tertiary,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const FavoriteMealsScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                        _buildQuickActionCard(
+                          context,
+                          icon: Icons.restaurant_menu,
+                          title: l10n.mealSuggestions,
+                          color: theme.colorScheme.secondary,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const MealSuggestionsScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
 
                   const SizedBox(height: 24),
@@ -840,34 +859,44 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     required VoidCallback onTap,
   }) {
     final theme = Theme.of(context);
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
-                  shape: BoxShape.circle,
+    // Use SizedBox to enforce consistent width for all cards
+    return SizedBox(
+      width: 105, // Fixed width to ensure three cards fit side by side
+      child: Card(
+        elevation: 0,
+        margin: const EdgeInsets.symmetric(horizontal: 4),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 12.0,
+              horizontal: 8.0,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: color.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(icon, color: color, size: 28),
                 ),
-                child: Icon(icon, color: color, size: 32),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                title,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
+                const SizedBox(height: 8),
+                Text(
+                  title,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
