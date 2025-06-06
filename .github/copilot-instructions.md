@@ -34,18 +34,22 @@ Ask me to run the app when you need. Do not run it yourself.
 - **Architecture changes**: Update `docs/architecture/uml-diagrams.md` if modifying structure
 - **Epic progress**: Update `docs/planning/current-epic.md` when completing features
 
-## 🎯 Current Development Guidelines (May 2025)
-### Advanced Meal Management (Current Epic - 85% Complete):
-- Finalize testing for meal history viewing and editing functionality
-- Optimize nutritional goal setting and tracking for performance
-- Complete edge case handling for weekly/monthly progress reports
-- Finalize meal favorites system integration with Firebase
-
+## 🎯 Current Development Guidelines (June 2025)
+### Smart Meal Planning (Epic 5 - Active Development):
+- **CRITICAL**: Minimize AI API calls (Gemini) to reduce costs
+- Implement resource-conscious design
 ### Code Quality:
 - Follow established patterns from `lib/features/ai_meal_logging/` for new features
 - Use Clean Architecture with domain/data/presentation layers
 - Implement proper error handling and logging throughout
 - Break up long files into smaller, manageable components
+- **Resource Management**: Always be conscious of expensive external API calls (AI services)
+
+### AI Usage Guidelines:
+- **Gemini API**: Use sparingly - max 1 call per user request for meal suggestions
+- **Fallback Strategy**: Always provide quality fallback options without AI when possible
+- **Caching**: Implement aggressive caching for AI-generated content
+- **Cost Monitoring**: Log AI usage and avoid redundant calls
 
 ### External Resources:
 - Use Perplexity for Firebase/Firestore latest documentation

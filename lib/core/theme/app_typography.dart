@@ -231,7 +231,6 @@ class AppTypography {
     return baseTheme.copyWith(
       colorScheme: colorScheme ?? defaultColorScheme,
       textTheme: textTheme,
-      useMaterial3: true,
 
       // Apply text theme to specific components
       appBarTheme: baseTheme.appBarTheme.copyWith(
@@ -304,7 +303,7 @@ class _FontSelectorState extends State<FontSelector> {
             decoration: BoxDecoration(
               color: Theme.of(
                 context,
-              ).colorScheme.surfaceVariant.withOpacity(0.3),
+              ).colorScheme.surfaceContainerHighest.withOpacity(0.3),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(

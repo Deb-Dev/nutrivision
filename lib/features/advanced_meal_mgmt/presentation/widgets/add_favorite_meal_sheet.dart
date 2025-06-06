@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:uuid/uuid.dart';
 import '../../domain/entities/nutrition_goals.dart';
 import '../providers/favorite_meals_provider.dart';
 import '../../../../core/providers/auth_providers.dart';
@@ -8,8 +7,7 @@ import '../../../../core/providers/auth_providers.dart';
 class AddFavoriteMealSheet extends ConsumerStatefulWidget {
   final VoidCallback onMealAdded;
 
-  const AddFavoriteMealSheet({Key? key, required this.onMealAdded})
-    : super(key: key);
+  const AddFavoriteMealSheet({super.key, required this.onMealAdded});
 
   @override
   ConsumerState<AddFavoriteMealSheet> createState() =>

@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
+import 'dart:developer' as dev;
 import 'dart:io';
+import 'package:crypto/crypto.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/entities/ai_meal_recognition.dart';
@@ -17,6 +18,14 @@ class GeminiAIService {
   late final bool _aiRecognitionEnabled;
   late final int _maxFoodItemsPerImage;
   late final double _minConfidenceThreshold;
+  
+  // Cache for meal suggestions to avoid duplicate API calls
+  final Map<String, String> _mealSuggestionCache = {};
+  final Map<String, DateTime> _mealSuggestionTimestamps = {};
+  final Duration _cacheExpiration = const Duration(minutes: 30);
+  
+  // Active requests tracking to prevent duplicate calls
+  final Map<String, Future<String>> _activeMealSuggestionRequests = {};
 
   /// Initialize the AI service with environment configuration
   Future<void> initialize() async {
@@ -80,19 +89,19 @@ class GeminiAIService {
 
   /// Analyze meal photo and return recognized food items
   Future<AIMealRecognitionResult> analyzeMealPhoto(File imageFile) async {
-    log('🤖 [AI SERVICE] analyzeMealPhoto() - Starting AI analysis');
-    log('📁 [AI SERVICE] Image file: ${imageFile.path}');
+    dev.log('🤖 [AI SERVICE] analyzeMealPhoto() - Starting AI analysis');
+    dev.log('📁 [AI SERVICE] Image file: ${imageFile.path}');
 
     if (!_isInitialized) {
-      log('⏳ [AI SERVICE] Service not initialized, initializing...');
+      dev.log('⏳ [AI SERVICE] Service not initialized, initializing...');
       await initialize();
     }
 
     // Check if AI recognition is enabled and model is available
     if (!_aiRecognitionEnabled || _visionModel == null) {
-      log('❌ [AI SERVICE] AI recognition disabled or model null');
-      log('🔧 [AI SERVICE] _aiRecognitionEnabled: $_aiRecognitionEnabled');
-      log(
+      dev.log('❌ [AI SERVICE] AI recognition disabled or model null');
+      dev.log('🔧 [AI SERVICE] _aiRecognitionEnabled: $_aiRecognitionEnabled');
+      dev.log(
         '🔧 [AI SERVICE] _visionModel: ${_visionModel != null ? 'NOT NULL' : 'NULL'}',
       );
       return AIMealRecognitionResult(
@@ -106,52 +115,52 @@ class GeminiAIService {
       );
     }
 
-    log('✅ [AI SERVICE] AI service ready, starting analysis...');
+    dev.log('✅ [AI SERVICE] AI service ready, starting analysis...');
     final stopwatch = Stopwatch()..start();
     final analyzedAt = DateTime.now();
 
     try {
       // Read and validate image
-      log('📖 [AI SERVICE] Reading image bytes...');
+      dev.log('📖 [AI SERVICE] Reading image bytes...');
       final imageBytes = await imageFile.readAsBytes();
-      log('📊 [AI SERVICE] Image size: ${imageBytes.length} bytes');
+      dev.log('📊 [AI SERVICE] Image size: ${imageBytes.length} bytes');
       if (imageBytes.isEmpty) {
         throw Exception('Invalid or empty image file');
       }
 
       // Create the analysis prompt
-      log('📝 [AI SERVICE] Creating analysis prompt...');
+      dev.log('📝 [AI SERVICE] Creating analysis prompt...');
       final prompt = _createFoodAnalysisPrompt();
-      log('📄 [AI SERVICE] Prompt created (length: ${prompt.length} chars)');
+      dev.log('📄 [AI SERVICE] Prompt created (length: ${prompt.length} chars)');
 
       // Create content with image and prompt
-      log('🔧 [AI SERVICE] Creating content for API call...');
+      dev.log('🔧 [AI SERVICE] Creating content for API call...');
       final content = [
         Content.multi([TextPart(prompt), DataPart('image/jpeg', imageBytes)]),
       ];
 
       // Generate content with retry mechanism
-      log('🚀 [AI SERVICE] Calling Gemini API...');
+      dev.log('🚀 [AI SERVICE] Calling Gemini API...');
       final response = await _generateContentWithRetry(content);
-      log('📥 [AI SERVICE] API response received');
+      dev.log('📥 [AI SERVICE] API response received');
 
       if (response.text == null || response.text!.isEmpty) {
-        log('❌ [AI SERVICE] Empty response from API');
+        dev.log('❌ [AI SERVICE] Empty response from API');
         throw Exception('Empty response from AI service');
       }
 
-      log(
+      dev.log(
         '📝 [AI SERVICE] Response text length: ${response.text!.length} chars',
       );
-      log('� [AI SERVICE] Raw Gemini response: ${response.text!}');
-      log('�🔍 [AI SERVICE] Parsing AI response...');
+      dev.log('� [AI SERVICE] Raw Gemini response: ${response.text!}');
+      dev.log('�🔍 [AI SERVICE] Parsing AI response...');
 
       // Parse the response
       final recognizedItems = _parseAIResponse(response.text!);
-      log('✅ [AI SERVICE] Parsed ${recognizedItems.length} recognized items');
+      dev.log('✅ [AI SERVICE] Parsed ${recognizedItems.length} recognized items');
 
       stopwatch.stop();
-      log(
+      dev.log(
         '⏱️ [AI SERVICE] Total processing time: ${stopwatch.elapsedMilliseconds}ms',
       );
 
@@ -164,8 +173,8 @@ class GeminiAIService {
       );
     } catch (e) {
       stopwatch.stop();
-      log('❌ [AI SERVICE] Error during analysis: $e');
-      log('⏱️ [AI SERVICE] Failed after ${stopwatch.elapsedMilliseconds}ms');
+      dev.log('❌ [AI SERVICE] Error during analysis: $e');
+      dev.log('⏱️ [AI SERVICE] Failed after ${stopwatch.elapsedMilliseconds}ms');
 
       return AIMealRecognitionResult(
         recognizedItems: [],
@@ -175,6 +184,88 @@ class GeminiAIService {
         analyzedAt: analyzedAt,
         imageId: _generateImageId(imageFile),
       );
+    }
+  }
+
+  /// Generate meal suggestions based on preferences and requirements
+  Future<String> generateMealSuggestion(String prompt) async {
+    dev.log(
+      '🤖 [AI SERVICE] generateMealSuggestion() - Starting meal suggestion generation',
+    );
+    
+    // Generate hash for this prompt
+    final promptHash = _hashPrompt(prompt);
+    
+    // Check if this exact request is already in progress
+    if (_activeMealSuggestionRequests.containsKey(promptHash)) {
+      dev.log('� [AI SERVICE] Request already in progress, returning existing future');
+      return _activeMealSuggestionRequests[promptHash]!;
+    }
+    
+    // Check for cached response
+    if (_hasCachedResponse(prompt)) {
+      dev.log('💡 [AI SERVICE] Using cached response for prompt');
+      return _getCachedResponse(prompt);
+    }
+    
+    dev.log('�📝 [AI SERVICE] Prompt hash: $promptHash');
+    dev.log('📝 [AI SERVICE] No cache hit, generating new response');
+
+    // Create a future for this request
+    final completer = _generateNewMealSuggestion(prompt, promptHash);
+    
+    // Store in active requests
+    _activeMealSuggestionRequests[promptHash] = completer;
+    
+    try {
+      // Wait for completion
+      final result = await completer;
+      return result;
+    } finally {
+      // Remove from active requests when done
+      _activeMealSuggestionRequests.remove(promptHash);
+    }
+  }
+  
+  /// Generate a new meal suggestion
+  Future<String> _generateNewMealSuggestion(String prompt, String promptHash) async {
+    if (!_isInitialized) {
+      dev.log('⏳ [AI SERVICE] Service not initialized, initializing...');
+      await initialize();
+    }
+
+    // Check if AI recognition is enabled and model is available
+    if (!_aiRecognitionEnabled || _visionModel == null) {
+      dev.log('❌ [AI SERVICE] AI recognition disabled or model null');
+      throw Exception('AI service is not available for meal suggestions');
+    }
+
+    try {
+      dev.log('🔄 [AI SERVICE] Sending meal suggestion request to Gemini...');
+
+      // Create content for text-only prompt
+      final content = [Content.text(prompt)];
+
+      // Generate response
+      final response = await _visionModel!.generateContent(content);
+
+      if (response.text == null || response.text!.isEmpty) {
+        dev.log('❌ [AI SERVICE] Empty response from Gemini');
+        throw Exception('Empty response from AI service');
+      }
+
+      dev.log('✅ [AI SERVICE] Received meal suggestion response');
+      dev.log(
+        '📄 [AI SERVICE] Response length: ${response.text!.length} characters',
+      );
+
+      // Cache the response
+      _cacheResponse(prompt, response.text!);
+
+      return response.text!;
+    } catch (e) {
+      dev.log('❌ [AI SERVICE] Meal suggestion generation failed: $e');
+      throw Exception('Failed to generate meal suggestion: $e');
     }
   }
 
@@ -219,12 +310,12 @@ Focus on clearly visible, identifiable food items only.
     Iterable<Content> content, {
     int maxRetries = 3,
   }) async {
-    log(
+    dev.log(
       '🔄 [AI SERVICE] _generateContentWithRetry() - Starting API call with retry logic',
     );
 
     if (_visionModel == null) {
-      log('❌ [AI SERVICE] Vision model is null!');
+      dev.log('❌ [AI SERVICE] Vision model is null!');
       throw Exception(
         'AI vision model not initialized - check API key configuration',
       );
@@ -235,15 +326,15 @@ Focus on clearly visible, identifiable food items only.
     while (true) {
       try {
         attempt++;
-        log('📡 [AI SERVICE] API attempt $attempt/$maxRetries...');
+        dev.log('📡 [AI SERVICE] API attempt $attempt/$maxRetries...');
         final response = await _visionModel!.generateContent(content);
-        log('✅ [AI SERVICE] API call successful on attempt $attempt');
+        dev.log('✅ [AI SERVICE] API call successful on attempt $attempt');
         return response;
       } catch (e) {
-        log('❌ [AI SERVICE] API attempt $attempt failed: $e');
+        dev.log('❌ [AI SERVICE] API attempt $attempt failed: $e');
 
         if (attempt >= maxRetries) {
-          log(
+          dev.log(
             '💥 [AI SERVICE] All $maxRetries attempts failed, throwing exception',
           );
           if (e is GenerativeAIException) {
@@ -259,7 +350,7 @@ Focus on clearly visible, identifiable food items only.
 
         // Exponential backoff delay
         final delay = Duration(milliseconds: 1000 * (1 << (attempt - 1)));
-        log('⏳ [AI SERVICE] Waiting ${delay.inMilliseconds}ms before retry...');
+        dev.log('⏳ [AI SERVICE] Waiting ${delay.inMilliseconds}ms before retry...');
         await Future.delayed(delay);
       }
     }
@@ -269,13 +360,15 @@ Focus on clearly visible, identifiable food items only.
   Map<String, dynamic> _transformApiResponseToModel(
     Map<String, dynamic> apiJson,
   ) {
-    log('🔄 [AI SERVICE] Transforming API response: $apiJson');
+    dev.log('🔄 [AI SERVICE] Transforming API response: $apiJson');
 
     try {
       // Handle different field naming conventions
       final transformedJson = <String, dynamic>{
         'name': apiJson['name'],
-        'confidence': apiJson['confidence'],
+        'confidence': apiJson['confidence'] is String 
+            ? double.tryParse(apiJson['confidence'] as String) ?? 0.0 
+            : (apiJson['confidence'] ?? 0.0),
         'estimatedServing':
             apiJson['estimated_serving'] ?? apiJson['estimatedServing'],
       };
@@ -305,10 +398,10 @@ Focus on clearly visible, identifiable food items only.
         transformedJson['boundingBox'] = apiJson['boundingBox'];
       }
 
-      log('✅ [AI SERVICE] Transformation successful: $transformedJson');
+      dev.log('✅ [AI SERVICE] Transformation successful: $transformedJson');
       return transformedJson;
     } catch (e) {
-      log('❌ [AI SERVICE] Transformation failed: $e');
+      dev.log('❌ [AI SERVICE] Transformation failed: $e');
       rethrow;
     }
   }
@@ -316,87 +409,87 @@ Focus on clearly visible, identifiable food items only.
   /// Parse AI response and extract food items
   List<RecognizedFoodItem> _parseAIResponse(String responseText) {
     try {
-      log('🔍 [AI SERVICE] Starting response parsing...');
-      log('📄 [AI SERVICE] Raw response to parse: $responseText');
+      dev.log('🔍 [AI SERVICE] Starting response parsing...');
+      dev.log('📄 [AI SERVICE] Raw response to parse: $responseText');
 
       // Clean the response text (remove markdown if present)
       String jsonText = responseText.trim();
-      log('🧹 [AI SERVICE] Trimmed response: $jsonText');
+      dev.log('🧹 [AI SERVICE] Trimmed response: $jsonText');
 
       if (jsonText.startsWith('```json')) {
         jsonText = jsonText.substring(7);
-        log('🧹 [AI SERVICE] Removed ```json prefix');
+        dev.log('🧹 [AI SERVICE] Removed ```json prefix');
       }
       if (jsonText.endsWith('```')) {
         jsonText = jsonText.substring(0, jsonText.length - 3);
-        log('🧹 [AI SERVICE] Removed ``` suffix');
+        dev.log('🧹 [AI SERVICE] Removed ``` suffix');
       }
       jsonText = jsonText.trim();
-      log('🧹 [AI SERVICE] Final cleaned JSON: $jsonText');
+      dev.log('🧹 [AI SERVICE] Final cleaned JSON: $jsonText');
 
       // Parse JSON
-      log('🔧 [AI SERVICE] Attempting JSON decode...');
+      dev.log('🔧 [AI SERVICE] Attempting JSON decode...');
       final Map<String, dynamic> parsed = jsonDecode(jsonText);
-      log('✅ [AI SERVICE] JSON decode successful');
-      log('📋 [AI SERVICE] Parsed keys: ${parsed.keys.toList()}');
+      dev.log('✅ [AI SERVICE] JSON decode successful');
+      dev.log('📋 [AI SERVICE] Parsed keys: ${parsed.keys.toList()}');
 
       if (!parsed.containsKey('items') || parsed['items'] is! List) {
-        log('❌ [AI SERVICE] Invalid response format: missing items array');
+        dev.log('❌ [AI SERVICE] Invalid response format: missing items array');
         throw Exception('Invalid response format: missing items array');
       }
 
       final List<dynamic> itemsJson = parsed['items'];
-      log('📋 [AI SERVICE] Found ${itemsJson.length} items in JSON');
-      log('📋 [AI SERVICE] Items JSON: $itemsJson');
+      dev.log('📋 [AI SERVICE] Found ${itemsJson.length} items in JSON');
+      dev.log('📋 [AI SERVICE] Items JSON: $itemsJson');
 
       final List<RecognizedFoodItem> items = [];
-      log('🔍 [AI SERVICE] Processing item  $itemsJson');
+      dev.log('🔍 [AI SERVICE] Processing item  $itemsJson');
 
       for (int i = 0; i < itemsJson.length; i++) {
         final itemJson = itemsJson[i];
         try {
-          log('🔍 [AI SERVICE] Processing item $i: $itemJson');
-          log('🔍 [AI SERVICE] Item keys: ${(itemJson as Map).keys.toList()}');
+          dev.log('🔍 [AI SERVICE] Processing item $i: $itemJson');
+          dev.log('🔍 [AI SERVICE] Item keys: ${(itemJson as Map).keys.toList()}');
 
           // Transform the JSON structure to match our model
           final transformedJson = _transformApiResponseToModel(
             Map<String, dynamic>.from(itemJson),
           );
-          log('🔄 [AI SERVICE] Transformed item: $transformedJson');
+          dev.log('🔄 [AI SERVICE] Transformed item: $transformedJson');
 
           final item = RecognizedFoodItem.fromJson(transformedJson);
-          log(
+          dev.log(
             '✅ [AI SERVICE] Successfully parsed item: ${item.name} (confidence: ${item.confidence})',
           );
 
           // Apply confidence threshold filter
           // if (item.confidence >= _minConfidenceThreshold) {
-          log(
+          dev.log(
             '🔍 [AI SERVICE] Found item: ${item.name} (confidence: ${item.confidence})',
           );
-          log('🍽️ [AI SERVICE] Estimated serving: ${item.estimatedServing}');
-          log(
+          dev.log('🍽️ [AI SERVICE] Estimated serving: ${item.estimatedServing}');
+          dev.log(
             '📊 [AI SERVICE] Nutritional estimate: ${item.nutritionalEstimate}',
           );
 
           items.add(item);
-          log(
+          dev.log(
             '➕ [AI SERVICE] Added item to final list. Current count: ${items.length}',
           );
           // }
         } catch (e, stackTrace) {
-          log('❌ [AI SERVICE] Failed to parse item $i: $e');
-          log('❌ [AI SERVICE] Stack trace: $stackTrace');
-          log('❌ [AI SERVICE] Raw item JSON: $itemJson');
+          dev.log('❌ [AI SERVICE] Failed to parse item $i: $e');
+          dev.log('❌ [AI SERVICE] Stack trace: $stackTrace');
+          dev.log('❌ [AI SERVICE] Raw item JSON: $itemJson');
           // Skip invalid items but continue processing
           continue;
         }
       }
 
-      log('📊 [AI SERVICE] Final parsed items count: ${items.length}');
+      dev.log('📊 [AI SERVICE] Final parsed items count: ${items.length}');
 
       if (items.isEmpty) {
-        log(
+        dev.log(
           '⚠️ [AI SERVICE] No items in final list, extracting confidences...',
         );
         final confidences = itemsJson
@@ -413,16 +506,16 @@ Focus on clearly visible, identifiable food items only.
             )
             .map((itemJson) => itemJson['name'])
             .toList();
-        log('📈 [AI SERVICE] Extracted confidences: $confidences');
+        dev.log('📈 [AI SERVICE] Extracted confidences: $confidences');
         throw Exception(
           'No food items detected with sufficient confidence. Confidences returned: $confidences and names: $names',
         );
       }
 
-      log('✅ [AI SERVICE] Returning ${items.length} parsed items');
+      dev.log('✅ [AI SERVICE] Returning ${items.length} parsed items');
       return items;
     } catch (e) {
-      log('❌ [AI SERVICE] Parsing failed: $e');
+      dev.log('❌ [AI SERVICE] Parsing failed: $e');
       throw Exception('Failed to parse AI response: $e');
     }
   }
@@ -444,4 +537,37 @@ Focus on clearly visible, identifiable food items only.
     'min_confidence_threshold': _minConfidenceThreshold,
     'is_initialized': _isInitialized,
   };
+
+  /// Check if a prompt has a valid cached response
+  bool _hasCachedResponse(String prompt) {
+    final promptHash = _hashPrompt(prompt);
+    if (!_mealSuggestionCache.containsKey(promptHash) ||
+        !_mealSuggestionTimestamps.containsKey(promptHash)) {
+      return false;
+    }
+    
+    final timestamp = _mealSuggestionTimestamps[promptHash]!;
+    final now = DateTime.now();
+    return now.difference(timestamp) < _cacheExpiration;
+  }
+  
+  /// Get cached response for a prompt
+  String _getCachedResponse(String prompt) {
+    final promptHash = _hashPrompt(prompt);
+    return _mealSuggestionCache[promptHash]!;
+  }
+  
+  /// Cache a response for a prompt
+  void _cacheResponse(String prompt, String response) {
+    final promptHash = _hashPrompt(prompt);
+    _mealSuggestionCache[promptHash] = response;
+    _mealSuggestionTimestamps[promptHash] = DateTime.now();
+  }
+  
+  /// Create a hash of the prompt for caching
+  String _hashPrompt(String prompt) {
+    final bytes = utf8.encode(prompt);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
+  }
 }

@@ -9,9 +9,10 @@ import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/mea
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/favorite_meals_screen.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/providers/meal_history_provider.dart';
 import 'package:nutrivision/core/models/meal_models.dart';
-import 'package:nutrivision/meal_suggestions_screen.dart';
+import 'package:nutrivision/features/smart_meal_planning/presentation/screens/meal_planning_screen.dart';
 import 'package:nutrivision/l10n/app_localizations.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/utils/meal_name_generator.dart';
+import 'package:nutrivision/features/home/presentation/widgets/interactive_summary_section.dart';
 import 'package:intl/intl.dart';
 
 /// Modern Home Dashboard Screen with card-based UI
@@ -420,32 +421,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           ),
                           const SizedBox(height: 16),
 
-                          // Macronutrients
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              _buildNutrientIndicator(
-                                context,
-                                l10n.protein,
-                                _consumedProtein,
-                                targetProtein,
-                                Colors.blue,
-                              ),
-                              _buildNutrientIndicator(
-                                context,
-                                l10n.carbs,
-                                _consumedCarbs,
-                                targetCarbs,
-                                Colors.green,
-                              ),
-                              _buildNutrientIndicator(
-                                context,
-                                l10n.fats,
-                                _consumedFat,
-                                targetFat,
-                                Colors.orange,
-                              ),
-                            ],
+                          // Interactive Nutrition Summary
+                          InteractiveSummarySection(
+                            consumedProtein: _consumedProtein,
+                            consumedCarbs: _consumedCarbs,
+                            consumedFat: _consumedFat,
+                            targetProtein: targetProtein,
+                            targetCarbs: targetCarbs,
+                            targetFat: targetFat,
                           ),
                         ],
                       ),
@@ -505,17 +488,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ),
                         _buildQuickActionCard(
                           context,
-                          icon: Icons.restaurant_menu,
-                          title: l10n.mealSuggestions,
-                          color: theme.colorScheme.secondary,
+                          icon: Icons.calendar_today,
+                          title: 'Meal Planning',
+                          color: theme.colorScheme.primary,
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const MealSuggestionsScreen(),
-                              ),
-                            );
+                            final userId = _user?.uid;
+                            if (userId != null) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      MealPlanningScreen(userId: userId),
+                                ),
+                              );
+                            }
                           },
                         ),
                       ],
@@ -803,51 +789,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         elevation: 8,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
-
-  Widget _buildNutrientIndicator(
-    BuildContext context,
-    String label,
-    double consumed,
-    double target,
-    Color color,
-  ) {
-    final theme = Theme.of(context);
-    final progress = target > 0 ? (consumed / target).clamp(0.0, 1.0) : 0.0;
-
-    return Column(
-      children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            SizedBox(
-              height: 60,
-              width: 60,
-              child: CircularProgressIndicator(
-                value: progress,
-                backgroundColor: color.withOpacity(0.2),
-                valueColor: AlwaysStoppedAnimation<Color>(color),
-                strokeWidth: 8,
-              ),
-            ),
-            Text(
-              '${consumed.toInt()}g',
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Text(label, style: theme.textTheme.bodyMedium),
-        Text(
-          '${target.toInt()}g',
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
-          ),
-        ),
-      ],
     );
   }
 

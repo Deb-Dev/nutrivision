@@ -2,17 +2,26 @@
 
 > **Start here for AI assistants working on NutriVision**
 
-## 📱 What is this project?
-Flutter app for nutrition tracking with AI photo recognition using Google Gemini.
+## 📱 What is this pr## 🔑 Key Files to Understand
+
+| Priority | File | Purpose | Status |
+|----------|------|---------|--------|
+| 🔥 HIGH | `smart_meal_planning/domain/entities/` | Core domain entities | ✅ Implemented |
+| 🔥 HIGH | `smart_meal_planning/domain/repositories/` | Repository interfaces | ✅ Implemented |
+| 🔥 HIGH | `smart_meal_planning/domain/usecases/` | Business logic | ✅ Implemented |
+| 🔥 HIGH | `smart_meal_planning/data/models/` | Data serialization | ✅ Implemented |
+| 🔥 HIGH | `smart_meal_planning/data/repositories/` | Repository implementations | ✅ Implemented |
+| � HIGH | `smart_meal_planning/presentation/providers/` | State management | ✅ Implemented |
+| 🔥 HIGH | `smart_meal_planning/presentation/screens/` | UI interfaces | 🔄 In Progress |Flutter app for nutrition tracking with AI photo recognition using Google Gemini.
 
 ## 🎯 Current Status (June 5, 2025)
-- **Version**: 2.2.1 - Bug Fixes & Feature Completion
-- **Overall**: 98% complete, beta testing in progress
-- **Latest**: Fixed nutrition goal tracking and completed meal favorites functionality
-- **Recent completion**: Advanced meal management (Epic 4), Dashboard UX refinement, Typography system
-- **Font System**: Interactive font selection with live preview across entire app
-- **Ready for**: Enhanced user customization and UI polish before Epic 5
-- **Next**: Smart Meal Planning (Epic 5) preparation
+- **Version**: 2.2.2 - Major progress in Smart Meal Planning implementation
+- **Overall**: 60% complete for Epic 5, significant advancement in core functionality
+- **Latest**: Fixed code generation issues, added table_calendar dependency, enhanced repository implementations
+- **Fully Completed**: Advanced meal management (Epic 4) with interactive nutrition visualization and favorites
+- **Recent Features**: Resolved freezed compilation errors, improved provider implementations, enhanced UI screens
+- **Current Focus**: Finalizing Smart Meal Planning implementation and dependency injection setup
+- **Next**: Complete remaining error fixes, implement AI integration, and add comprehensive testing
 
 ## 🗺️ Codebase Roadmap
 
@@ -42,7 +51,7 @@ NutriVision/
 │   │       ├── ai_photo_meal_screen.dart             # 📷 Photo capture
 │   │       └── ai_meal_confirmation_screen.dart      # ✅ Confirmation UI
 │   │
-│   ├── 📊 advanced_meal_mgmt/ (85% DONE) ⭐ CURRENT FOCUS # Meal history & analytics
+│   ├── 📊 advanced_meal_mgmt/ (COMPLETE) ✅         # Meal history & analytics
 │   │   ├── domain/
 │   │   │   ├── entities/meal_history.dart          # 📋 History models
 │   │   │   └── repositories/meal_history_repository.dart
@@ -53,8 +62,20 @@ NutriVision/
 │   │       ├── screens/meal_history_screen.dart     # 📊 History view
 │   │       └── screens/nutritional_goals_screen.dart # 🎯 Goals UI
 │   │
+│   ├── 🍽️ smart_meal_planning/ (IN PROGRESS) 🚧      # Smart meal planning
+│   │   ├── domain/
+│   │   │   ├── entities/meal_plan.dart             # 📋 Core planning models (✅ Complete)
+│   │   │   └── repositories/meal_plan_repository.dart # Repository interfaces (✅ Complete)
+│   │   ├── data/ 
+│   │   │   ├── models/                             # 💾 Serialization (✅ Complete)
+│   │   │   └── repositories/                       # Repository implementations (✅ Complete)
+│   │   └── presentation/ 
+│   │       ├── screens/                            # Planning screens (🔄 80% Complete)
+│   │       ├── providers/                          # State management (✅ Complete)
+│   │       └── widgets/                            # Planning UI components (🔄 Planning)
+│   │
 │   ├── 📝 meal_logging/ (COMPLETE)        # Manual meal entry
-│   └── 📊 dashboard/ (COMPLETE)           # Main dashboard
+│   └── 📊 dashboard/ (COMPLETE)           # Main dashboard with interactive charts
 │
 └── 🔧 Services & Config (COMPLETE)
     ├── services/food_database_service.dart  # Legacy food DB
@@ -62,21 +83,21 @@ NutriVision/
     └── main.dart                            # App entry point
 ```
 
-## 🔄 Advanced Meal Management Flow (Current Focus)
+## 🔄 Smart Meal Planning Flow (New Focus)
 
 ```
-📱 User Journey:
+📱 Planned User Journey:
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│ � View     │ ➤  │ ✏️ Edit     │ ➤  │ 🎯 Track    │ ➤  │ � Analyze  │
-│ History     │    │ Past Meals  │    │ Goals       │    │ Progress    │
+│ 🧠 Get AI   │ ➤  │ 📅 Plan     │ ➤  │ 🛒 Generate │ ➤  │ 📊 Track    │
+│ Suggestions │    │ Meals       │    │ Grocery List│    │ Adherence   │
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
 
 🔧 Technical Implementation Plan:
-1. meal_history_screen.dart           # Display past logged meals
-2. meal_edit_screen.dart             # Edit existing meal entries
-3. nutrition_goals_service.dart      # Goal setting & tracking
-4. meal_analytics_screen.dart        # Weekly/monthly reports
-5. meal_favorites_repository.dart    # Quick-log favorite meals
+1. meal_suggestion_service.dart       # AI-powered meal suggestions
+2. meal_planning_screen.dart          # Weekly meal calendar interface
+3. grocery_list_generator.dart        # Shopping list creation
+4. diet_plan_integration.dart         # Integration with diet plans
+5. plan_adherence_tracker.dart        # Tracking meal plan compliance
 ```
 
 ## 🎯 Data Flow Architecture
@@ -95,22 +116,23 @@ NutriVision/
 
 | Priority | File | Purpose | Status |
 |----------|------|---------|--------|
-| 🔥 HIGH | `meal_history_screen.dart` | View past logged meals | 🔄 To Build |
-| 🔥 HIGH | `meal_edit_repository.dart` | Edit existing meal entries | 🔄 To Build |
-| 🔥 HIGH | `nutrition_goals_service.dart` | Goal setting & tracking | 🔄 To Build |
-| 🟡 MED | `meal_analytics_screen.dart` | Weekly/monthly reports | 📅 Planning |
-| 🟡 MED | `meal_favorites_repository.dart` | Quick-log favorite meals | 📅 Planning |
+| 🔥 HIGH | `smart_meal_planning/` | New feature directory | � Planning |
+| 🔥 HIGH | `meal_suggestion_service.dart` | AI-powered suggestions | � Planning |
+| 🔥 HIGH | `meal_planning_screen.dart` | Weekly calendar UI | � Planning |
+| 🟡 MED | `grocery_list_generator.dart` | Shopping list creation | 📅 Planning |
+| 🟡 MED | `diet_plan_integration.dart` | Diet plan integration | 📅 Planning |
 
 ## ✅ What Works Right Now
 ```
-� Auth → 📝 Manual Logging → 📸 AI Photo Analysis → 🍎 Food Recognition →  Firestore Save → 📊 Dashboard
+� Auth → 📝 Manual Logging → 📸 AI Photo Analysis → 🍎 Food Recognition → Firestore Save → 📊 Interactive Dashboard
+→ 📝 Meal History → 🎯 Goal Tracking → 📊 Analytics → ⭐ Favorites
 ```
 
-## 🚧 What Needs Work (Epic 4)
-- **Meal History**: View and edit past logged meals
-- **Goal Setting**: Define and track nutritional targets
-- **Analytics**: Weekly/monthly progress reports
-- **Favorites**: Quick-log frequently eaten meals
+## 🚧 What Needs Work (Epic 5)
+- **AI Meal Suggestions**: Generate personalized meal suggestions
+- **Custom Meal Planning**: Calendar-based meal scheduling
+- **Grocery List Generation**: Create shopping lists from meal plans
+- **Diet Plan Integration**: Connect to predefined diet plans
 
 ## 🛠️ Tech Stack Quick Reference
 
@@ -123,11 +145,13 @@ NutriVision/
 | **AI** | Google Gemini Vision | Food recognition |
 | **Models** | Freezed + json_annotation | Immutable data classes |
 | **DI** | Injectable + GetIt | Dependency injection |
+| **Visualization** | FL Chart | Interactive nutrition charts |
 
 ## 🔍 For Complete Context
 - **Full Project Overview**: [`docs/README.md`](docs/README.md)
 - **Implementation Status**: [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md)
 - **Architecture Details**: [`docs/architecture/modern-architecture.md`](docs/architecture/modern-architecture.md)
+- **Smart Meal Planning**: [`docs/planning/epic5-smart-meal-planning.md`](docs/planning/epic5-smart-meal-planning.md)
 
 ---
-**🎯 TLDR**: Epic 3 (AI meal logging) is complete! Now focusing on Epic 4 (Advanced Meal Management) - `lib/features/advanced_meal_mgmt/` needs to be built!
+**🎯 TLDR**: Epic 4 (Advanced Meal Management) is complete! Now focusing on Epic 5 (Smart Meal Planning) - building the AI-based meal planning system!

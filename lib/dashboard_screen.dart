@@ -16,6 +16,7 @@ import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/adv
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/nutrition_analytics_screen.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/nutritional_goals_screen.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/favorite_meals_screen.dart';
+import 'package:nutrivision/features/smart_meal_planning/presentation/screens/meal_planning_screen.dart';
 import 'package:nutrivision/l10n/app_localizations.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
@@ -54,7 +55,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       return;
     }
     try {
-      DocumentSnapshot userDoc = await ref.read(firebaseFirestoreProvider)
+      DocumentSnapshot userDoc = await ref
+          .read(firebaseFirestoreProvider)
           .collection('users')
           .doc(_user!.uid)
           .get();
@@ -91,7 +93,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     DateTime endOfDay = DateTime(date.year, date.month, date.day, 23, 59, 59);
 
     // Fetch regular logged meals
-    QuerySnapshot mealSnapshot = await ref.read(firebaseFirestoreProvider)
+    QuerySnapshot mealSnapshot = await ref
+        .read(firebaseFirestoreProvider)
         .collection('users')
         .doc(_user!.uid)
         .collection('loggedMeals')
@@ -103,7 +106,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         .get();
 
     // Fetch AI meal logs
-    QuerySnapshot aiMealSnapshot = await ref.read(firebaseFirestoreProvider)
+    QuerySnapshot aiMealSnapshot = await ref
+        .read(firebaseFirestoreProvider)
         .collection('users')
         .doc(_user!.uid)
         .collection('ai_meal_logs')
@@ -597,77 +601,117 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  Column(
                     children: [
-                      Expanded(
-                        child: Consumer(
-                          // Wrap with Consumer to access ref
-                          builder: (context, ref, child) {
-                            return OutlinedButton.icon(
-                              icon: const Icon(Icons.history),
-                              label: const Text('View Meal History'),
-                              onPressed: () async {
-                                final userId =
-                                    ref.read(firebaseAuthProvider).currentUser?.uid;
-                                if (userId == null) return; // Or handle error
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: Consumer(
+                              // Wrap with Consumer to access ref
+                              builder: (context, ref, child) {
+                                return OutlinedButton.icon(
+                                  icon: const Icon(Icons.history),
+                                  label: const Text('Meal History'),
+                                  onPressed: () async {
+                                    final userId = ref
+                                        .read(firebaseAuthProvider)
+                                        .currentUser
+                                        ?.uid;
+                                    if (userId == null) {
+                                      return; // Or handle error
+                                    }
 
-                                // Set the initial filter using the provider
-                                await ref
-                                    .read(mealHistoryProvider.notifier)
-                                    .setInitialFilterAndLoad(
-                                      userId,
-                                      MealHistoryFilter(
-                                        startDate: _selectedDisplayDate,
-                                        endDate: _selectedDisplayDate,
-                                        // Keep other filter options as default or null if not needed initially
+                                    // Set the initial filter using the provider
+                                    await ref
+                                        .read(mealHistoryProvider.notifier)
+                                        .setInitialFilterAndLoad(
+                                          userId,
+                                          MealHistoryFilter(
+                                            startDate: _selectedDisplayDate,
+                                            endDate: _selectedDisplayDate,
+                                            // Keep other filter options as default or null if not needed initially
+                                          ),
+                                        );
+
+                                    final result = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const NewMealHistoryScreen.MealHistoryScreen(),
                                       ),
                                     );
-
-                                final result = await Navigator.push(
+                                    if (result == true && mounted) {
+                                      _loadDashboardData();
+                                    }
+                                  },
+                                  style: OutlinedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 12,
+                                    ),
+                                    textStyle: const TextStyle(fontSize: 12),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: OutlinedButton.icon(
+                              icon: const Icon(Icons.lightbulb_outline),
+                              label: const Text('Meal Ideas'),
+                              onPressed: () {
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        const NewMealHistoryScreen.MealHistoryScreen(),
+                                        const MealSuggestionsScreen(),
                                   ),
                                 );
-                                if (result == true && mounted) {
-                                  _loadDashboardData();
+                              },
+                              style: OutlinedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 12,
+                                ),
+                                textStyle: const TextStyle(fontSize: 12),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 160,
+                            child: OutlinedButton.icon(
+                              icon: const Icon(Icons.calendar_today),
+                              label: const Text('Meal Planning'),
+                              onPressed: () {
+                                final userId = _user?.uid;
+                                if (userId != null) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          MealPlanningScreen(userId: userId),
+                                    ),
+                                  );
                                 }
                               },
                               style: OutlinedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
+                                  horizontal: 8,
                                   vertical: 12,
                                 ),
-                                textStyle: const TextStyle(fontSize: 14),
+                                textStyle: const TextStyle(fontSize: 12),
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: OutlinedButton.icon(
-                          icon: const Icon(Icons.lightbulb_outline),
-                          label: const Text('Meal Ideas'),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const MealSuggestionsScreen(),
-                              ),
-                            );
-                          },
-                          style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 12,
                             ),
-                            textStyle: const TextStyle(fontSize: 14),
                           ),
-                        ),
+                        ],
                       ),
                     ],
                   ),

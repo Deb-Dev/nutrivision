@@ -5,15 +5,106 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- **Smart Meal Planning**: Major progress in Epic 5 implementation
+  - Created domain entities for meal plans, meal suggestions, grocery lists, and diet plans
+  - Implemented repository interfaces for core meal planning operations
+  - Added initial use cases for meal suggestions, meal plan creation, and grocery list generation
+  - Established core data structures for AI-powered meal planning
+  - Implemented data models with Firestore serialization for all core entities
+  - Created repository implementations for meal plan, meal suggestion, and grocery list operations
+  - Added presentation layer with Riverpod state management providers
+  - Implemented UI screens for meal suggestions, meal planning, and grocery lists
+  - Added navigation and dependency injection setup
+  - Successfully ran code generation for all freezed entities
+  - Added table_calendar dependency for meal planning calendar interface
+  - Enhanced providers with data loading capabilities for meal plans and grocery lists
+
+### Optimized
+- **Resource Management**: Critical cost optimization for AI API usage (June 6, 2025)
+  - **MAJOR FIX**: Reduced Gemini API calls from 5 per request to 1 per request (80% cost reduction)
+  - Implemented direct fallback meal generation to avoid unnecessary AI service calls
+  - Added resource-conscious meal suggestion logic: 1 AI + 4 fallback suggestions per request
+  - Enhanced meal suggestion service to respect 'requestType' parameter for cost control
+  - Added comprehensive fallback meal databases for breakfast, lunch, dinner with variety
+  - Updated Copilot instructions to emphasize resource-conscious AI usage guidelines
+  - Fixed enum usage error (SuggestionSource.manual → SuggestionSource.personalized)
+
+### Fixed
+- **Code Generation**: Resolved freezed entity compilation issues
+  - Fixed missing generated files by running build_runner
+  - Addressed Either/Future return type issues in repository implementations
+  - Resolved compile errors in domain entities and data models
+  - Fixed provider method signatures and dependency injection setup
+- **Smart Meal Planning**: Resolved all remaining compile and type errors
+  - Fixed NutritionalSummary type mismatches across domain and data layers
+  - Added missing `order` field to GroceryCategory entity and model
+  - Corrected repository implementation return types to match interfaces
+  - Fixed dependency injection configuration in GetIt and Riverpod providers
+  - Resolved method signature mismatches in meal suggestion repository
+  - Cleaned up unused imports and variables throughout the module
+  - Fixed duplicate class definitions in authentication wrapper
+  - **Result**: Smart Meal Planning feature now compiles cleanly with only minor lint warnings
+- **Smart Meal Planning**: Fixed critical meal suggestion issues (June 6, 2025)
+  - Fixed type error in fallback meal generation causing crash: `_Map<String, num>` vs `Map<String, double>`
+  - Added proper type conversion for nutritional values in meal suggestions
+  - Enhanced caching with local in-memory cache to reduce redundant API calls
+  - Fixed duplicate API requests for the same meal type in meal planning screen
+  - Improved error handling in meal suggestion generation with better fallback handling
+  - Reduced API costs by optimizing request flows and preventing duplicate calls
+  - Added better logging for AI-generated meal suggestions
+
+## [2.2.2] - 2025-06-05
+
+### Changed
+- **Epic Transition**: Completed transition from Epic 4 to Epic 5
+  - Updated all project documentation to reflect Epic 4 completion
+  - Finalized Epic 5 planning documents and technical specifications
+  - Updated roadmap and implementation timelines for Smart Meal Planning
+  - Prepared codebase for Epic 5 feature development
+
+### Added
+- **Technical Documentation**: Created comprehensive planning documents for Epic 5
+  - Added detailed technical specification for meal planning features
+  - Created lessons learned document from Epic 4 implementation
+  - Defined data models and architecture for meal planning system
+  - Established metrics for tracking Epic 5 success
+
+### Fixed
+- **Documentation Consistency**: Ensured all documentation reflects current project status
+  - Synchronized status information across all documentation files
+  - Corrected status indicators in all project files
+  - Updated priority matrices for new development focus
+  - Fixed progress indicators in implementation roadmap
+
 ## [2.2.1] - 2025-06-05
 
 ### Added
+- **Interactive Summary Widgets**: Added dynamic nutrition visualization to the dashboard
+  - Implemented interactive charts using FL Chart library
+  - Added detailed nutrient breakdown with tap interaction
+  - Created weekly nutrition tracking visualization
+  - Added ability to toggle between daily and weekly views
+  - Enhanced macronutrient display with percentage indicators
+
 - **Dashboard Enhancements**: Added quick access to favorites from the dashboard
   - Added "Favorites" card in the More Actions section
   - Integrated with the existing FavoriteMealsScreen for seamless navigation
   - Used consistent styling with other quick action cards
 
 ### Fixed
+- **UI Layout Issues**: Fixed overflow and compactness problems in the interactive summary section
+  - Optimized toggle controls for better space usage with segmented buttons
+  - Made all chart components more compact with reduced padding and spacing
+  - Improved responsive layout for nutrient indicators to prevent overflow
+  - Adjusted text sizes and visual elements for better fit on various screen sizes
+  - Fixed Nutrition Breakdown view to better utilize limited screen space
+  - Redesigned view toggle system with three distinct view buttons for better UX
+  - Improved weekly chart view with clearer day selection controls
+  - Fixed blue dotted line appearance in weekly view for better aesthetics
+
 - **Nutritional Goal Tracking**: Fixed issue where consumed nutrients weren't being reflected in goal progress
   - Implemented proper data fetching from meal logs to calculate daily nutrition totals
   - Updated repository interface and implementation to track real-time consumption
@@ -281,7 +372,7 @@ Epic 4 Advanced Meal Management is now architecturally sound and ready for funct
 - **Provider Method Signatures**: Updated all provider calls to match repository interface signatures
 - **Code Cleanup**: Removed unused imports and orphaned generated files
 
-### 🐛 Bug Fixes  
+### 🐛 Bug Fixs  
 - **Method Signatures**: Fixed updateMeal method call in meal edit screen to use correct positional parameters
 - **Type Safety**: Removed nullable check on non-nullable Failure.message property
 - **Import Optimization**: Cleaned up unused nutrition analytics repository import
@@ -346,7 +437,7 @@ Epic 4 Advanced Meal Management is now architecturally sound and ready for funct
 - **Error Recovery**: Comprehensive error handling and retry mechanisms
 
 ### 🐛 Critical Fixes
-- **Firestore Serialization**: Fixed `Instance of '_$ConfirmedMealItemImpl'` error
+- **Firestore Serialization**: Fixed `Instance of '_$ConfirmedMealltemImpl'` error
 - **AI Service Initialization**: Resolved `NotInitializedError` crashes
 - **JSON Field Mapping**: Fixed snake_case vs camelCase mismatches
 - **Repository Logging**: Added comprehensive debugging throughout pipeline
@@ -389,129 +480,5 @@ Epic 4 Advanced Meal Management is now architecturally sound and ready for funct
 ## [2.0.2] - 2025-05-25
 
 ### Fixed
-- **Critical Fix**: Resolved `NotInitializedError` in AI Photo Meal Logging screen when clicking analyze button
-- Enhanced GeminiAIService initialization to handle invalid API keys gracefully without throwing exceptions
-- Added null checks for `_visionModel` before attempting to generate content to prevent runtime crashes
-- Improved error handling in `_generateContentWithRetry` method with proper model validation
-- AI service now properly disables when API key is missing/invalid instead of causing application crashes
-- Added comprehensive logging during AI service initialization for better debugging
-
-## [2.0.1] - 2025-05-25
-
-### Fixed
-- Fixed iOS runtime crash caused by missing environment configuration handling
-- Added graceful fallback when `.env` file is not found or environment variables are missing
-- Enhanced GeminiAIService to handle missing API keys without throwing exceptions
-- AI meal recognition now gracefully disables when API key is not configured
-- Fixed AI meal logging repository implementation by replacing `handleExceptions()` with `safeCall()` method from BaseRepository
-- Resolved Environment import ambiguity in GeminiAIService by using import alias
-- Fixed all `Result.failure`/`Result.success` calls to use proper `Left`/`Right` constructors from Either pattern
-- Fixed `when()` method calls to use `fold()` method for Either pattern
-- Corrected provider name references from `aiMealPhotoNotifierProvider` to `aIMealPhotoNotifierProvider`
-- Removed unused mock food database methods (`_getMockFoodItemById`, `_getMockFoodItems`)
-
-### Changed
-- Environment class now provides sensible defaults for all configuration values
-- App can now run without `.env` file by using default environment values
-- Enhanced error handling for missing environment configuration
-- Completed integration of real USDA Food Database Service with AI meal logging feature
-- All AI meal logging methods now use actual food database instead of mock implementations
-- Enhanced error handling throughout AI meal logging domain and presentation layers
-- Updated ValidationFailure constructors to use named `message` parameter
-
-### Technical
-- Successfully resolved iOS "FileNotFoundError" crash on app startup
-- App now builds and runs successfully on iOS devices
-- Successfully resolved all compilation errors in AI meal logging feature
-- App now builds successfully on web platform (✓ Built build/web)
-- Reduced analysis issues from 215+ critical errors to 98 non-blocking warnings/info messages (95%+ improvement)
-- All core AI meal logging functionality now uses production-ready patterns
-
-## [2.0.0] - 2025-05-25
-
-### Added
-- **COMPLETED**: Modern Flutter Architecture Migration (2024/2025 Best Practices)
-  - ✅ **Compilation Success**: Reduced compilation errors from 215+ to 88 minor warnings (~90% improvement)
-  - ✅ **App Successfully Running**: Modern architecture app compiles and runs on web, iOS, and Android
-  - ✅ **State Management**: Full Riverpod 2.6.1 integration with AuthNotifier and providers
-  - ✅ **Dependency Injection**: Complete GetIt + Injectable setup with service locator pattern
-  - ✅ **Error Handling**: Functional Result<T> pattern implemented with Dartz for all async operations
-  - ✅ **Authentication**: Modern auth feature with Firebase integration and proper state management
-  - ✅ **Code Generation**: Freezed entities, JSON serialization, and Riverpod providers auto-generated
-  - ✅ **Project Structure**: Feature-based Clean Architecture with core/, features/, and proper separation
-  - ✅ **Environment Config**: Secure API key management with .env files and remote config integration
-  - ✅ **Modern Main App**: Updated application entry point with ProviderScope and dependency injection
-  - ✅ **AuthWrapper**: Modern authentication flow using switch expressions and Riverpod state
-  - ✅ **Documentation**: Comprehensive architecture guides (MODERN_ARCHITECTURE.md, ARCHITECTURE_STATUS.md)
-
-### Changed
-- **Breaking**: Replaced old StatefulWidget patterns with modern Riverpod state management
-- **Breaking**: Updated main.dart to use new architecture with ProviderScope
-- **Security**: Moved hardcoded API keys to environment variables
-- **Performance**: Optimized state management with Riverpod's reactive system
-- **Maintainability**: Restructured codebase into feature modules for better organization
-
-### Technical Debt Resolved
-- ✅ Eliminated 90% of compilation errors and warnings
-- ✅ Removed direct Firebase calls in UI widgets
-- ✅ Replaced try-catch boilerplate with functional error handling
-- ✅ Fixed import path issues and dependency management
-- ✅ Modernized build system with proper code generation
-- ✅ Improved type safety across the entire application
-
-### Infrastructure
-- ✅ **Build System**: Successfully running `dart run build_runner build` for code generation
-- ✅ **Testing**: Updated widget tests to work with new architecture
-- ✅ **Development**: App running successfully on web server for development
-- ✅ **Production Ready**: Architecture foundation ready for production deployment
-
-## [1.0.0-epic2] - 2025-05-24
-
-### Epic 2 Completion Summary
-Epic 2: Manual Meal Logging & Basic Tracking (MVP) has been successfully completed with all user stories implemented:
-
-#### User Story 2.1: Manual Food Search ✅
-- ✅ Enhanced meal logging with tabbed interface (Search, Scan, Manual Entry)
-- ✅ USDA FoodData Central API integration for comprehensive food database
-- ✅ Food search with autocomplete and nutritional previews
-- ✅ Quantity and serving size input with dynamic calculation
-- ✅ Meal type selection (Breakfast, Lunch, Dinner, Snack)
-- ✅ Date and time selection for meal logging
-
-#### User Story 2.2: Barcode Scanning ✅
-- ✅ Barcode scanning functionality using mobile_scanner v7.0.0
-- ✅ Camera permission handling and error states
-- ✅ UPC barcode lookup via USDA database
-- ✅ Fallback to manual search if barcode not found
-- ✅ Quantity specification for scanned products
-
-#### User Story 2.3: Daily Nutritional Breakdown ✅
-- ✅ Meal history screen with grouping by meal type
-- ✅ Daily totals for calories, protein, carbs, and fat
-- ✅ Per-meal-type subtotals and nutritional breakdown
-- ✅ **NEW: Tap functionality for full nutritional details** - Implemented MealDetailsDialog
-- ✅ Edit and delete functionality for logged meals
-- ✅ Real-time dashboard updates after meal operations
-
-#### User Story 2.4: Basic Meal Suggestions ✅
-- ✅ Rule-based meal suggestion engine
-- ✅ Firebase Remote Config integration for dynamic suggestions
-- ✅ Personalized recommendations based on user dietary preferences
-- ✅ Meal type-specific suggestions (Breakfast, Lunch, Dinner, Snack)
-- ✅ Enhanced suggestion service with caching and error handling
-
-### Technical Achievements
-- **Architecture**: Clean separation of concerns with services layer
-- **API Integration**: Robust USDA FoodData Central integration with error handling
-- **State Management**: Proper Firebase integration with real-time updates
-- **UI/UX**: Modern Material Design 3 implementation with accessibility
-- **Performance**: Efficient data loading and caching strategies
-- **Documentation**: Comprehensive system design documentation created
-
-### Code Quality Metrics
-- **Test Coverage**: Unit tests for food database service
-- **Error Handling**: Comprehensive error states and user feedback
-- **Internationalization**: English and French language support
-- **Accessibility**: Screen reader support and proper semantic markup
-- **Performance**: Lazy loading and efficient Firestore queries
+- **Critical Fix**: Resolved `NotInitializedError` in AI Photo Meal Logging screen when clicking analyze
 
