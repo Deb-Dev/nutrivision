@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/meal_planning_screen.dart';
-import '../screens/meal_suggestions_screen.dart';
+import '../screens/swipeable_meal_suggestions_screen.dart';
 import '../screens/grocery_list_screen.dart';
 import '../../domain/entities/meal_plan.dart';
 
@@ -27,10 +27,10 @@ class SmartMealPlanningNavigation {
   }) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => MealSuggestionsScreen(
+        builder: (context) => SwipeableMealSuggestionsScreen(
           mealType: mealType,
           date: date,
-          onSuggestionSelected: onSuggestionSelected,
+          onSuggestionAccepted: onSuggestionSelected,
         ),
       ),
     );
@@ -66,10 +66,10 @@ class SmartMealPlanningRoutes {
       mealSuggestions: (context) {
         final args =
             ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-        return MealSuggestionsScreen(
+        return SwipeableMealSuggestionsScreen(
           mealType: args['mealType'] as String,
           date: args['date'] as DateTime?,
-          onSuggestionSelected:
+          onSuggestionAccepted:
               args['onSuggestionSelected'] as Function(dynamic)?,
         );
       },

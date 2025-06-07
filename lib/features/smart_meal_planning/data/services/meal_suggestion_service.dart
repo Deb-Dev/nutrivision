@@ -295,9 +295,6 @@ class MealSuggestionService extends BaseRepository {
       },
       'source': suggestion.source.toString().split('.').last,
       'createdAt': Timestamp.fromDate(suggestion.createdAt ?? DateTime.now()),
-      'dateGenerated':
-          suggestion.createdAt?.toIso8601String().split('T')[0] ??
-          DateTime.now().toIso8601String().split('T')[0],
       'description': suggestion.description,
       'preparationTimeMinutes': suggestion.preparationTimeMinutes,
     };
@@ -385,7 +382,6 @@ class MealSuggestionService extends BaseRepository {
   Future<MealSuggestion> _generateAISuggestion(
     Map<String, dynamic> preferences,
   ) async {
-    final mealType = preferences['mealType'] as String;
     final maxRetries = 1; // Limit retries to reduce API costs
     int retryCount = 0;
 
@@ -785,19 +781,6 @@ class MealSuggestionService extends BaseRepository {
       protein: protein,
       carbs: carbs,
       fat: fat,
-    );
-  }
-
-  /// Parse nutritional summary from data
-  NutritionalSummary _parseNutritionalSummary(Map<String, dynamic> data) {
-    return NutritionalSummary(
-      calories: (data['calories'] as num).toInt(),
-      protein: (data['protein'] as num).toDouble(),
-      carbs: (data['carbs'] as num).toDouble(),
-      fat: (data['fat'] as num).toDouble(),
-      fiber: (data['fiber'] as num?)?.toDouble(),
-      sugar: (data['sugar'] as num?)?.toDouble(),
-      sodium: (data['sodium'] as num?)?.toDouble(),
     );
   }
 

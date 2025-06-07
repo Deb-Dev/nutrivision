@@ -7,9 +7,6 @@ import '../../domain/repositories/grocery_list_repository.dart';
 import '../../domain/repositories/meal_plan_repository.dart';
 import '../../data/repositories/grocery_list_repository_impl.dart';
 import '../../data/repositories/meal_plan_repository_impl.dart';
-import '../../data/services/meal_suggestion_service.dart';
-import '../../../ai_meal_logging/data/services/gemini_ai_service.dart';
-import '../../../../core/di/injection.dart';
 
 /// State for grocery lists
 class GroceryListState {
@@ -214,12 +211,4 @@ final groceryListRepositoryProvider = Provider<GroceryListRepository>((ref) {
 /// Provider for the meal plan repository (shared with meal_plan_provider)
 final mealPlanRepositoryProvider = Provider<MealPlanRepository>((ref) {
   return MealPlanRepositoryImpl(FirebaseFirestore.instance);
-});
-
-/// Provider for the meal suggestion service (shared)
-final mealSuggestionServiceProvider = Provider<MealSuggestionService>((ref) {
-  return MealSuggestionService(
-    FirebaseFirestore.instance,
-    getIt<GeminiAIService>(),
-  );
 });

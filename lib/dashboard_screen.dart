@@ -10,13 +10,14 @@ import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/mea
     as NewMealHistoryScreen; // Import new MealHistoryScreen
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/providers/meal_history_provider.dart'; // Import for filter
 import 'package:nutrivision/core/models/meal_models.dart'; // Import for MealHistoryFilter
-import 'package:nutrivision/meal_suggestions_screen.dart'; // Import MealSuggestionsScreen
+import 'package:nutrivision/features/smart_meal_planning/presentation/navigation/smart_meal_planning_navigation.dart';
 import 'package:nutrivision/features/ai_meal_logging/presentation/pages/ai_photo_meal_page.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/advanced_meal_management_screen.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/nutrition_analytics_screen.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/nutritional_goals_screen.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/favorite_meals_screen.dart';
 import 'package:nutrivision/features/smart_meal_planning/presentation/screens/meal_planning_screen.dart';
+import 'package:nutrivision/features/smart_meal_planning/presentation/screens/grocery_list_screen.dart';
 import 'package:nutrivision/l10n/app_localizations.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
@@ -662,12 +663,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               icon: const Icon(Icons.lightbulb_outline),
                               label: const Text('Meal Ideas'),
                               onPressed: () {
-                                Navigator.push(
+                                SmartMealPlanningNavigation.navigateToMealSuggestionsScreen(
                                   context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const MealSuggestionsScreen(),
-                                  ),
+                                  'lunch',
+                                  date: DateTime.now(),
                                 );
                               },
                               style: OutlinedButton.styleFrom(
@@ -711,6 +710,33 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               ),
                             ),
                           ),
+                          const SizedBox(width: 12),
+                          SizedBox(
+                            width: 160,
+                            child: OutlinedButton.icon(
+                              icon: const Icon(Icons.shopping_cart),
+                              label: const Text('Grocery Lists'),
+                              onPressed: () {
+                                final userId = _user?.uid;
+                                if (userId != null) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          GroceryListScreen(userId: userId),
+                                    ),
+                                  );
+                                }
+                              },
+                              style: OutlinedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 12,
+                                ),
+                                textStyle: const TextStyle(fontSize: 12),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -738,16 +764,16 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       icon: const Icon(Icons.lightbulb_outline),
                       label: Text('Meal Suggestions'), // Added
                       onPressed: () async {
-                        final result = await Navigator.push(
+                        SmartMealPlanningNavigation.navigateToMealSuggestionsScreen(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const MealSuggestionsScreen(), // Added
-                          ),
+                          'dinner',
+                          date: DateTime.now(),
+                          onSuggestionSelected: (result) {
+                            if (result == true && mounted) {
+                              _loadDashboardData();
+                            }
+                          },
                         );
-                        if (result == true && mounted) {
-                          _loadDashboardData();
-                        }
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(

@@ -6,7 +6,7 @@ import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/mea
     as NewMealHistoryScreen;
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/providers/meal_history_provider.dart';
 import 'package:nutrivision/core/models/meal_models.dart';
-import 'package:nutrivision/meal_suggestions_screen.dart';
+import 'package:nutrivision/features/smart_meal_planning/presentation/navigation/smart_meal_planning_navigation.dart';
 import 'package:nutrivision/features/ai_meal_logging/presentation/pages/ai_photo_meal_page.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/advanced_meal_management_screen.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/nutrition_analytics_screen.dart';
@@ -514,11 +514,10 @@ class DashboardScreen extends ConsumerWidget {
                     icon: const Icon(Icons.lightbulb_outline),
                     label: const Text('Meal Ideas'),
                     onPressed: () {
-                      Navigator.push(
+                      SmartMealPlanningNavigation.navigateToMealSuggestionsScreen(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const MealSuggestionsScreen(),
-                        ),
+                        'lunch',
+                        date: DateTime.now(),
                       );
                     },
                     style: OutlinedButton.styleFrom(
@@ -551,15 +550,16 @@ class DashboardScreen extends ConsumerWidget {
                 icon: const Icon(Icons.lightbulb_outline),
                 label: const Text('Meal Suggestions'),
                 onPressed: () async {
-                  final result = await Navigator.push(
+                  SmartMealPlanningNavigation.navigateToMealSuggestionsScreen(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => const MealSuggestionsScreen(),
-                    ),
+                    'dinner',
+                    date: DateTime.now(),
+                    onSuggestionSelected: (result) {
+                      if (result == true) {
+                        dashboardNotifier.loadDashboardData();
+                      }
+                    },
                   );
-                  if (result == true) {
-                    dashboardNotifier.loadDashboardData();
-                  }
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(

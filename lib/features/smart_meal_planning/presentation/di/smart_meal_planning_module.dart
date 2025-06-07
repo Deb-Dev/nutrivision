@@ -10,6 +10,7 @@ import '../../data/repositories/meal_plan_repository_impl.dart';
 import '../../data/repositories/meal_suggestion_repository_impl.dart';
 import '../../data/repositories/grocery_list_repository_impl.dart';
 import '../../data/services/meal_suggestion_service.dart';
+import '../../data/services/single_meal_suggestion_service.dart';
 import '../../../../core/di/injection.dart';
 import '../../../ai_meal_logging/data/services/gemini_ai_service.dart';
 
@@ -44,6 +45,16 @@ class SmartMealPlanningModule {
         () => MealSuggestionRepositoryImpl(
           FirebaseFirestore.instance,
           getIt<MealSuggestionService>(),
+        ),
+      );
+    }
+
+    // Single meal suggestion service
+    if (!getIt.isRegistered<SingleMealSuggestionService>()) {
+      getIt.registerLazySingleton<SingleMealSuggestionService>(
+        () => SingleMealSuggestionService(
+          FirebaseFirestore.instance,
+          getIt<GeminiAIService>(),
         ),
       );
     }

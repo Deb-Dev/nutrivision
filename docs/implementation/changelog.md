@@ -22,6 +22,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added table_calendar dependency for meal planning calendar interface
   - Enhanced providers with data loading capabilities for meal plans and grocery lists
 
+### Fixed
+- **Navigation**: Fixed Grocery List button on Meal Planning screen (June 6, 2025)
+  - Added proper import for GroceryListScreen in meal_planning_screen.dart
+  - Implemented navigation from Meal Planning screen to Grocery List screen
+  - Passes active meal plan context to grocery list for proper integration
+  - Button now properly navigates users to the grocery list with their meal plan data
+
 ### Optimized
 - **Resource Management**: Critical cost optimization for AI API usage (June 6, 2025)
   - **MAJOR FIX**: Reduced Gemini API calls from 5 per request to 1 per request (80% cost reduction)

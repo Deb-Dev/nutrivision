@@ -5,7 +5,7 @@
 Ask me to run the app when you need. Do not run it yourself.
 
 ### Required Reading Order:
-1. **Quick Context**: `LLM_CONTEXT.md` - Project overview, current status (Epic 4 at 85% complete)
+1. **Quick Context**: `LLM_CONTEXT.md` - Project overview, current status
 2. **Implementation Status**: `docs/PROJECT_STATUS.md` - Real-time progress dashboard and next goals  
 3. **Architecture Guide**: `docs/architecture/uml-diagrams.md` - Visual codebase roadmap and data flow
 4. **Current Work**: `docs/planning/current-epic.md` - Active Epic 4 (Advanced Meal Management) details

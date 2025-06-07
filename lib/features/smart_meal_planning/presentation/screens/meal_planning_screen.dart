@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../providers/meal_plan_provider.dart';
-import 'meal_suggestions_screen.dart';
+import '../navigation/smart_meal_planning_navigation.dart';
+import 'grocery_list_screen.dart';
 import '../../domain/entities/meal_suggestion.dart';
 import '../../domain/entities/meal_plan.dart';
 
@@ -44,8 +45,10 @@ class _MealPlanningScreenState extends ConsumerState<MealPlanningScreen> {
 
   /// Create a new meal plan
   void _createNewMealPlan() {
-    final TextEditingController nameController = TextEditingController(text: 'Weekly Plan');
-    
+    final TextEditingController nameController = TextEditingController(
+      text: 'Weekly Plan',
+    );
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -71,8 +74,8 @@ class _MealPlanningScreenState extends ConsumerState<MealPlanningScreen> {
           ElevatedButton(
             onPressed: () async {
               // Get the entered plan name
-              final name = nameController.text.isEmpty 
-                  ? 'Weekly Plan' 
+              final name = nameController.text.isEmpty
+                  ? 'Weekly Plan'
                   : nameController.text;
 
               // Create a new meal plan using the provider with minimal preferences
@@ -82,9 +85,7 @@ class _MealPlanningScreenState extends ConsumerState<MealPlanningScreen> {
                     userId: widget.userId,
                     name: name,
                     startDate: _selectedDay,
-                    endDate: _selectedDay.add(
-                      const Duration(days: 7),
-                    ),
+                    endDate: _selectedDay.add(const Duration(days: 7)),
                     preferences: {
                       'planName': name,
                       'skipAiSuggestions': true, // Flag to skip AI suggestions
@@ -121,38 +122,35 @@ class _MealPlanningScreenState extends ConsumerState<MealPlanningScreen> {
     }
 
     // Navigate to meal suggestions screen
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => MealSuggestionsScreen(
-          mealType: mealType,
-          date: _selectedDay,
-          onSuggestionSelected: (suggestion) {
-            // Convert MealSuggestion to PlannedMeal
-            final plannedMeal = _convertSuggestionToPlannedMeal(
-              suggestion,
-              mealType,
-            );
+    SmartMealPlanningNavigation.navigateToMealSuggestionsScreen(
+      context,
+      mealType,
+      date: _selectedDay,
+      onSuggestionSelected: (suggestion) {
+        // Convert MealSuggestion to PlannedMeal
+        final plannedMeal = _convertSuggestionToPlannedMeal(
+          suggestion,
+          mealType,
+        );
 
-            // Add the meal to the active plan
-            ref
-                .read(mealPlanProvider.notifier)
-                .addMealToPlan(activePlan, _selectedDay, mealType, plannedMeal);
+        // Add the meal to the active plan
+        ref
+            .read(mealPlanProvider.notifier)
+            .addMealToPlan(activePlan, _selectedDay, mealType, plannedMeal);
 
-            // Show success message
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  'Added ${suggestion.name} to ${_formatDate(_selectedDay)} $mealType',
-                ),
-                backgroundColor: Colors.green,
-              ),
-            );
+        // Show success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Added ${suggestion.name} to ${_formatDate(_selectedDay)} $mealType',
+            ),
+            backgroundColor: Colors.green,
+          ),
+        );
 
-            // Go back to meal planning screen
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
+        // Go back to meal planning screen
+        Navigator.of(context).pop();
+      },
     );
   }
 
@@ -183,47 +181,44 @@ class _MealPlanningScreenState extends ConsumerState<MealPlanningScreen> {
 
       // Navigate to meal suggestions screen
       if (mounted) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => MealSuggestionsScreen(
-              mealType: mealType,
-              date: _selectedDay,
-              onSuggestionSelected: (suggestion) {
-                // Convert MealSuggestion to PlannedMeal
-                final plannedMeal = _convertSuggestionToPlannedMeal(
-                  suggestion,
-                  mealType,
-                );
+        SmartMealPlanningNavigation.navigateToMealSuggestionsScreen(
+          context,
+          mealType,
+          date: _selectedDay,
+          onSuggestionSelected: (suggestion) {
+            // Convert MealSuggestion to PlannedMeal
+            final plannedMeal = _convertSuggestionToPlannedMeal(
+              suggestion,
+              mealType,
+            );
 
-                // Get the current active plan
-                final activePlan = ref.read(mealPlanProvider).activeMealPlan;
-                if (activePlan != null) {
-                  // Add the meal to the active plan
-                  ref
-                      .read(mealPlanProvider.notifier)
-                      .addMealToPlan(
-                        activePlan,
-                        _selectedDay,
-                        mealType,
-                        plannedMeal,
-                      );
-
-                  // Show success message
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Added ${suggestion.name} to ${_formatDate(_selectedDay)} $mealType',
-                      ),
-                      backgroundColor: Colors.green,
-                    ),
+            // Get the current active plan
+            final activePlan = ref.read(mealPlanProvider).activeMealPlan;
+            if (activePlan != null) {
+              // Add the meal to the active plan
+              ref
+                  .read(mealPlanProvider.notifier)
+                  .addMealToPlan(
+                    activePlan,
+                    _selectedDay,
+                    mealType,
+                    plannedMeal,
                   );
-                }
 
-                // Go back to meal planning screen
-                Navigator.of(context).pop();
-              },
-            ),
-          ),
+              // Show success message
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Added ${suggestion.name} to ${_formatDate(_selectedDay)} $mealType',
+                  ),
+                  backgroundColor: Colors.green,
+                ),
+              );
+            }
+
+            // Go back to meal planning screen
+            Navigator.of(context).pop();
+          },
         );
       }
     } catch (e) {
@@ -342,7 +337,15 @@ class _MealPlanningScreenState extends ConsumerState<MealPlanningScreen> {
                         icon: const Icon(Icons.shopping_cart_outlined),
                         label: const Text('Grocery List'),
                         onPressed: () {
-                          // Navigate to grocery list screen
+                          // Navigate to grocery list screen with the active meal plan
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => GroceryListScreen(
+                                userId: widget.userId,
+                                mealPlan: activePlan,
+                              ),
+                            ),
+                          );
                         },
                       ),
                     ],
