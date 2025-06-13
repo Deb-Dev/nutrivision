@@ -7,70 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- **Smart Meal Planning**: Major progress in Epic 5 implementation
-  - Created domain entities for meal plans, meal suggestions, grocery lists, and diet plans
-  - Implemented repository interfaces for core meal planning operations
-  - Added initial use cases for meal suggestions, meal plan creation, and grocery list generation
-  - Established core data structures for AI-powered meal planning
-  - Implemented data models with Firestore serialization for all core entities
-  - Created repository implementations for meal plan, meal suggestion, and grocery list operations
-  - Added presentation layer with Riverpod state management providers
-  - Implemented UI screens for meal suggestions, meal planning, and grocery lists
-  - Added navigation and dependency injection setup
-  - Successfully ran code generation for all freezed entities
-  - Added table_calendar dependency for meal planning calendar interface
-  - Enhanced providers with data loading capabilities for meal plans and grocery lists
-
-### Fixed
-- **Navigation**: Fixed Grocery List button on Meal Planning screen (June 6, 2025)
-  - Added proper import for GroceryListScreen in meal_planning_screen.dart
-  - Implemented navigation from Meal Planning screen to Grocery List screen
-  - Passes active meal plan context to grocery list for proper integration
-  - Button now properly navigates users to the grocery list with their meal plan data
-
-### Optimized
-- **Resource Management**: Critical cost optimization for AI API usage (June 6, 2025)
-  - **MAJOR FIX**: Reduced Gemini API calls from 5 per request to 1 per request (80% cost reduction)
-  - Implemented direct fallback meal generation to avoid unnecessary AI service calls
-  - Added resource-conscious meal suggestion logic: 1 AI + 4 fallback suggestions per request
-  - Enhanced meal suggestion service to respect 'requestType' parameter for cost control
-  - Added comprehensive fallback meal databases for breakfast, lunch, dinner with variety
-  - Updated Copilot instructions to emphasize resource-conscious AI usage guidelines
-  - Fixed enum usage error (SuggestionSource.manual → SuggestionSource.personalized)
-
-### Fixed
-- **Code Generation**: Resolved freezed entity compilation issues
-  - Fixed missing generated files by running build_runner
-  - Addressed Either/Future return type issues in repository implementations
-  - Resolved compile errors in domain entities and data models
-  - Fixed provider method signatures and dependency injection setup
-- **Smart Meal Planning**: Resolved all remaining compile and type errors
-  - Fixed NutritionalSummary type mismatches across domain and data layers
-  - Added missing `order` field to GroceryCategory entity and model
-  - Corrected repository implementation return types to match interfaces
-  - Fixed dependency injection configuration in GetIt and Riverpod providers
-  - Resolved method signature mismatches in meal suggestion repository
-  - Cleaned up unused imports and variables throughout the module
-  - Fixed duplicate class definitions in authentication wrapper
-  - **Result**: Smart Meal Planning feature now compiles cleanly with only minor lint warnings
-- **Smart Meal Planning**: Fixed critical meal suggestion issues (June 6, 2025)
-  - Fixed type error in fallback meal generation causing crash: `_Map<String, num>` vs `Map<String, double>`
-  - Added proper type conversion for nutritional values in meal suggestions
-  - Enhanced caching with local in-memory cache to reduce redundant API calls
-  - Fixed duplicate API requests for the same meal type in meal planning screen
-  - Improved error handling in meal suggestion generation with better fallback handling
-  - Reduced API costs by optimizing request flows and preventing duplicate calls
-  - Added better logging for AI-generated meal suggestions
-
-## [2.2.2] - 2025-06-05
-
 ### Changed
-- **Epic Transition**: Completed transition from Epic 4 to Epic 5
-  - Updated all project documentation to reflect Epic 4 completion
-  - Finalized Epic 5 planning documents and technical specifications
-  - Updated roadmap and implementation timelines for Smart Meal Planning
-  - Prepared codebase for Epic 5 feature development
+- **Project Cleanup**: Removed Smart Meal Planning feature
+  - Removed the entire smart_meal_planning module to prepare for a redesigned implementation
+  - Updated all references in dashboard screens and navigation components
+  - Removed dependency injection setup for smart meal planning
+  - Added placeholder messages for meal planning UI elements
+  - Fixed build errors related to missing files
 
 ### Added
 - **Technical Documentation**: Created comprehensive planning documents for Epic 5

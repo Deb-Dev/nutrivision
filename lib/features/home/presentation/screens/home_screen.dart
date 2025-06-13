@@ -9,7 +9,6 @@ import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/mea
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/favorite_meals_screen.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/providers/meal_history_provider.dart';
 import 'package:nutrivision/core/models/meal_models.dart';
-import 'package:nutrivision/features/smart_meal_planning/presentation/screens/meal_planning_screen.dart';
 import 'package:nutrivision/l10n/app_localizations.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/utils/meal_name_generator.dart';
 import 'package:nutrivision/features/home/presentation/widgets/interactive_summary_section.dart';
@@ -492,16 +491,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           title: 'Meal Planning',
                           color: theme.colorScheme.primary,
                           onTap: () {
-                            final userId = _user?.uid;
-                            if (userId != null) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      MealPlanningScreen(userId: userId),
-                                ),
-                              );
-                            }
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Meal planning feature is under development'),
+                              ),
+                            );
                           },
                         ),
                       ],

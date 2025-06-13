@@ -9,16 +9,12 @@ import 'package:logger/logger.dart';
 
 import 'injection.config.dart';
 import '../../services/food_database_service.dart';
-import '../../features/smart_meal_planning/presentation/di/smart_meal_planning_module.dart';
 
 final GetIt getIt = GetIt.instance;
 
 @InjectableInit()
 Future<void> configureDependencies() async {
   await getIt.init();
-
-  // Initialize Smart Meal Planning module
-  SmartMealPlanningModule.registerWithGetIt();
 }
 
 /// Core dependencies module

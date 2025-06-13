@@ -10,14 +10,11 @@ import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/mea
     as NewMealHistoryScreen; // Import new MealHistoryScreen
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/providers/meal_history_provider.dart'; // Import for filter
 import 'package:nutrivision/core/models/meal_models.dart'; // Import for MealHistoryFilter
-import 'package:nutrivision/features/smart_meal_planning/presentation/navigation/smart_meal_planning_navigation.dart';
 import 'package:nutrivision/features/ai_meal_logging/presentation/pages/ai_photo_meal_page.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/advanced_meal_management_screen.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/nutrition_analytics_screen.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/nutritional_goals_screen.dart';
 import 'package:nutrivision/features/advanced_meal_mgmt/presentation/screens/favorite_meals_screen.dart';
-import 'package:nutrivision/features/smart_meal_planning/presentation/screens/meal_planning_screen.dart';
-import 'package:nutrivision/features/smart_meal_planning/presentation/screens/grocery_list_screen.dart';
 import 'package:nutrivision/l10n/app_localizations.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
@@ -663,10 +660,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               icon: const Icon(Icons.lightbulb_outline),
                               label: const Text('Meal Ideas'),
                               onPressed: () {
-                                SmartMealPlanningNavigation.navigateToMealSuggestionsScreen(
-                                  context,
-                                  'lunch',
-                                  date: DateTime.now(),
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Meal planning feature is under development'),
+                                  ),
                                 );
                               },
                               style: OutlinedButton.styleFrom(
@@ -690,16 +687,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               icon: const Icon(Icons.calendar_today),
                               label: const Text('Meal Planning'),
                               onPressed: () {
-                                final userId = _user?.uid;
-                                if (userId != null) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          MealPlanningScreen(userId: userId),
-                                    ),
-                                  );
-                                }
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Meal planning feature is under development'),
+                                  ),
+                                );
                               },
                               style: OutlinedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(
@@ -717,16 +709,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               icon: const Icon(Icons.shopping_cart),
                               label: const Text('Grocery Lists'),
                               onPressed: () {
-                                final userId = _user?.uid;
-                                if (userId != null) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          GroceryListScreen(userId: userId),
-                                    ),
-                                  );
-                                }
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Grocery lists feature is under development'),
+                                  ),
+                                );
                               },
                               style: OutlinedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(
@@ -764,15 +751,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       icon: const Icon(Icons.lightbulb_outline),
                       label: Text('Meal Suggestions'), // Added
                       onPressed: () async {
-                        SmartMealPlanningNavigation.navigateToMealSuggestionsScreen(
-                          context,
-                          'dinner',
-                          date: DateTime.now(),
-                          onSuggestionSelected: (result) {
-                            if (result == true && mounted) {
-                              _loadDashboardData();
-                            }
-                          },
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Meal suggestions feature is under development'),
+                          ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
